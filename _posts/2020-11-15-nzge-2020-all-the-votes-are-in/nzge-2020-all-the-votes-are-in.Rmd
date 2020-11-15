@@ -211,7 +211,7 @@ knitr::kable(observations %>%
 
 maori_seats <- c("Hauraki-Waikato","Ikaroa-Rāwhiti", "Tāmaki Makaurau","Te Tai Hauāuru", "Te Tai Tokerau","Te Tai Tonga","Waiariki")
 
-big_2_in_generals <- observations %>% filter(party %in% big_two & !(electorate %in% maori_seats))
+big_2_in_generals <- observations %>% filter(party %in% big_two & !(electorate %in% maori_seats) & candidate != "GOLDSMITH, Paul")
 
 seat_vs_party_model <- lm(candidate_vote ~ party_vote, data=big_2_in_generals)
                       
@@ -239,7 +239,7 @@ big_2_in_generals$outperformance <- big_2_in_generals$candidate_vote - big_2_in_
 
 ```
 
-There appears to be a strong relationship between how a party performed and how its candidates performed. Plugging the party vote and candidate vote into a simple linear regression shows that, for a major party candidate in a general electorate,  **`r pc(summary(seat_vs_party_model)$adj.r.squared)`%** of the variation in their candidate vote can be predicted from the party vote. Once the model accounts for the overall differences between National and Labour this year, the proportion accounted for shoots up to **`r pc(summary(party_specific_cv_model)$adj.r.squared)`%**.
+There appears to be a strong relationship between how a party performed and how its candidates performed. Plugging the party vote and candidate vote into a simple linear regression^[N.b., I have excluded Paul Goldsmith from this regression because of the unique electoral situation in Epsom. This is **new** in the post-specials version of this article.] shows that, for a major party candidate in a general electorate,  **`r pc(summary(seat_vs_party_model)$adj.r.squared)`%** of the variation in their candidate vote can be predicted from the party vote. Once the model accounts for the overall differences between National and Labour this year, the proportion accounted for shoots up to **`r pc(summary(party_specific_cv_model)$adj.r.squared)`%**.
 
 ```{r, echo=F}
 cv_vs_pv_plot
