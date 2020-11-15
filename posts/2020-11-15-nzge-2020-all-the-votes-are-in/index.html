@@ -111,12 +111,12 @@ code span.wa { color: #545454; font-weight: bold; font-style: italic; } /* Warni
   <!--radix_placeholder_rmarkdown_metadata-->
 
 <script type="text/json" id="radix-rmarkdown-metadata">
-{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","categories","date","output"]}},"value":[{"type":"character","attributes":{},"value":["NZGE 2020: All the Votes Are In"]},{"type":"character","attributes":{},"value":["I look at how the various parties and their candidates performed across \nNew Zealand's 72 electorates."]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url","affiliation"]}},"value":[{"type":"character","attributes":{},"value":["Mitchell Palmer"]},{"type":"character","attributes":{},"value":["https://mitchellpalmer.nz"]},{"type":"character","attributes":{},"value":["Yale-NUS College"]}]}]},{"type":"character","attributes":{},"value":["New Zealand","Politics","Elections"]},{"type":"character","attributes":{},"value":["11-15-2020"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]}]}
+{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","categories","date","output"]}},"value":[{"type":"character","attributes":{},"value":["NZGE 2020: All the Votes Are In"]},{"type":"character","attributes":{},"value":["I look at how the various parties and their candidates performed across \nNew Zealand's 72 electorates."]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url","affiliation"]}},"value":[{"type":"character","attributes":{},"value":["Mitchell Palmer"]},{"type":"character","attributes":{},"value":["https://mitchellpalmer.nz"]},{"type":"character","attributes":{},"value":["Yale-NUS College"]}]}]},{"type":"character","attributes":{},"value":["New Zealand","Politics","Elections"]},{"type":"character","attributes":{},"value":["11-15-2020"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained","toc","toc_depth"]}},"value":[{"type":"logical","attributes":{},"value":[false]},{"type":"logical","attributes":{},"value":[true]},{"type":"integer","attributes":{},"value":[2]}]}]}]}
 </script>
 <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["Coded_to_regions.csv","nzge-2020-all-the-votes-are-in_files/anchor-4.2.2/anchor.min.js","nzge-2020-all-the-votes-are-in_files/bowser-1.9.3/bowser.min.js","nzge-2020-all-the-votes-are-in_files/distill-2.2.21/template.v2.js","nzge-2020-all-the-votes-are-in_files/figure-html5/unnamed-chunk-1-1.png","nzge-2020-all-the-votes-are-in_files/figure-html5/unnamed-chunk-1-2.png","nzge-2020-all-the-votes-are-in_files/figure-html5/unnamed-chunk-10-1.png","nzge-2020-all-the-votes-are-in_files/figure-html5/unnamed-chunk-7-1.png","nzge-2020-all-the-votes-are-in_files/jquery-1.11.3/jquery.min.js","nzge-2020-all-the-votes-are-in_files/pagedtable-1.1/css/pagedtable.css","nzge-2020-all-the-votes-are-in_files/pagedtable-1.1/js/pagedtable.js","nzge-2020-all-the-votes-are-in_files/webcomponents-2.0.0/webcomponents.js","observations_2020-10-18.csv","observations_2020-11-15.csv","scraper.py"]}
+  {"type":"character","attributes":{},"value":["Coded_to_regions.csv","nzge-2020-all-the-votes-are-in_files/anchor-4.2.2/anchor.min.js","nzge-2020-all-the-votes-are-in_files/bowser-1.9.3/bowser.min.js","nzge-2020-all-the-votes-are-in_files/distill-2.2.21/template.v2.js","nzge-2020-all-the-votes-are-in_files/figure-html5/unnamed-chunk-1-1.png","nzge-2020-all-the-votes-are-in_files/figure-html5/unnamed-chunk-1-2.png","nzge-2020-all-the-votes-are-in_files/figure-html5/unnamed-chunk-10-1.png","nzge-2020-all-the-votes-are-in_files/figure-html5/unnamed-chunk-15-1.png","nzge-2020-all-the-votes-are-in_files/figure-html5/unnamed-chunk-7-1.png","nzge-2020-all-the-votes-are-in_files/jquery-1.11.3/jquery.min.js","nzge-2020-all-the-votes-are-in_files/pagedtable-1.1/css/pagedtable.css","nzge-2020-all-the-votes-are-in_files/pagedtable-1.1/js/pagedtable.js","nzge-2020-all-the-votes-are-in_files/webcomponents-2.0.0/webcomponents.js","observations_2020-10-18.csv","observations_2020-11-15.csv","scraper.py"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
 <meta name="distill:offset" content="../.."/>
@@ -2066,15 +2066,29 @@ document.addEventListener('DOMContentLoaded', function() {
 </div>
 
 <div class="d-article">
-<p><em>I wrote a <a href="posts/2020-11-15-nz-general-election-2020-election-night-analysis-by-electorate/">post on Election Night</a> laying out how the various parties performed across the 72 electorates in New Zealand. Since then, approximately half a million votes more have been counted. A number of people, both on Twitter and in private correspondence, have asked me to update my analysis with those new numbers. That’s what this post does.</em></p>
-<p><em>The specials did not really shift the broad picture – destruction for National and elation for Labour – but simply emphasised it (with the possible exeception of the Maori Party getting two MPs). This post is therefore essentially a copy-paste of my previous analysis with annotations explaining how the inclusion of the special votes has changed the story:</em> <del>Struck-through</del> <em>text is text which appeared in the original version, but is no longer true when special votes are counted.</em> <strong>Bold</strong> <em>text is new with special votes. The graphs and tables and in-text numbers are entirely populated with new data. You can see the pre-specials figures <a href="posts/2020-11-15-nz-general-election-2020-election-night-analysis-by-electorate/">here</a>.</em></p>
+<div class="d-contents d-contents-float">
+<nav class="l-text toc figcaption" id="TOC">
+<h3>Contents</h3>
+<ul>
+<li><a href="#why-is-this-interesting">Why is this interesting?</a></li>
+<li><a href="#how-did-the-parties-do">How did the parties do?</a></li>
+<li><a href="#how-did-the-candidates-do">How did the candidates do?</a></li>
+<li><a href="#where-did-they-do-well">Where did they do well?</a></li>
+<li><a href="#how-concentrated-was-each-parties-support-new">How concentrated was each parties’ support? [NEW]</a></li>
+<li><a href="#how-were-the-special-votes-distributed-new">How were the special votes distributed? [NEW]</a></li>
+</ul>
+</nav>
+</div>
+<p>I wrote a <a href="/posts/2020-11-15-nz-general-election-2020-election-night-analysis-by-electorate/">post on Election Night</a> laying out how the various parties performed across the 72 electorates in New Zealand. Since then, approximately half a million more <a href="https://www.rnz.co.nz/news/political/428614/election-2020-special-votes-explained">special</a> votes have been counted. A number of people, both on Twitter and in private correspondence, have asked me to update my analysis with those new numbers. That’s what this post does.</p>
+<p>The specials did not really shift the broad picture – destruction for National and elation for Labour – but simply emphasised it (with the possible exeception of the Māori Party getting two MPs).This post is therefore essentially a copy-paste of my previous analysis with annotations explaining how the inclusion of the special votes has changed the story: <del>Struck-through</del> text is text which appeared in the original version, but is no longer true when special votes are counted. <strong>Bold</strong> text is new with special votes. The graphs and tables and in-text numbers are entirely populated with new data. You can see the pre-specials figures <a href="/posts/2020-11-15-nz-general-election-2020-election-night-analysis-by-electorate/">here</a>. Some new analysis, including of the effect and spread of special votes, is included at the end.</p>
+<hr />
 <p>Wow. What a result. The broad national narrative of Election 2020 for each party seems clear:</p>
 <ul>
 <li>Labour got a stonking victory, delivering a massive personal mandate for Jacinda Ardern</li>
 <li>National had a dismal night, which managed to be worse than expected</li>
 <li>ACT had a great night, confirming months of positive polling</li>
 <li>The Greens outperformed, though perhaps Labour’s result was marginally too good for their tastes.</li>
-<li>The Māori Party might be back from the dead</li>
+<li>The Māori Party <del>might be</del> <strong>are</strong> back from the dead</li>
 <li>New Zealand First should be dead for good – although making that prediction is perhaps never wise</li>
 </ul>
 <p>However there is also much to be said about the individual constituencies at play. That is what I’m going to do in this post. I’m not making an argument in this post, just exploring the data to see what happens.</p>
@@ -2087,7 +2101,8 @@ document.addEventListener('DOMContentLoaded', function() {
 <li>Please feel free to email me at mp (at) mitchellpalmer.nz if you have any questions.</li>
 </ol>
 <aside>
-I no longer have the excuse of lateness or urgency if anything is broken, but please still let me know if you spot anything amiss.
+<p>I no longer have the excuse of lateness or urgency if anything is broken, but please still let me know if you spot anything amiss.</p>
+In addition, I should disclose that I worked for ACT during this election, not that there is much opportunity for any of this analysis to take a partisan slant.
 </aside>
 <h1 id="why-is-this-interesting">Why is this interesting?</h1>
 <p>Finding out where the votes for each party were found tells us a lot about their electoral strategy and the coalitions they have built. It also lets us find out who the most popular MPs are, aside from their party affiliation.</p>
@@ -2098,10 +2113,7 @@ I no longer have the excuse of lateness or urgency if anything is broken, but pl
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="nzge-2020-all-the-votes-are-in_files/figure-html5/unnamed-chunk-1-1.png" width="624" /><img src="nzge-2020-all-the-votes-are-in_files/figure-html5/unnamed-chunk-1-2.png" width="624" /></p>
 </div>
-<p>Clearly, National significantly outperformed in candidate votes compared to their party vote performance. That is mirrored in the constituency counts: National had the plurality (i.e., the most votes) of candidate votes in <del>26</del> <strong>23</strong> electorates, but the plurality of party votes in only <del>4</del> <strong>1</strong>. Why? Three possibilities occur to me (ranked in order of estimated importance):</p>
-<aside>
-The overall party vote percentage National recieved did not fall massively with the inclusion of the special votes (from 26.8% before to 25.6% after), but the fact that that small 1.2% swing shifted three solidly blue electorates to having Labour pluralities in the party vote simply shows how badly National were beaten.
-</aside>
+<p>Clearly, National significantly outperformed in candidate votes compared to their party vote performance. That is mirrored in the constituency counts: National had the plurality (i.e., the most votes) of candidate votes in <del>26</del> <strong>23</strong> electorates, but the plurality of party votes in only <del>four</del> <strong>one</strong><a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>. Why? Three possibilities occur to me (ranked in order of estimated importance):</p>
 <ol type="1">
 <li>Electorate votes are sticky: Perhaps voters are less willing to abandon their local MP, to whom they can attach a face and a name, than parties, which after all are simply brands. Given National won the most electorates in 2017, that this stickiness favoured National is unsurprising.</li>
 <li>National’s local campaigns were better than their national campaign: Perhaps the collegial nature of constituency committees and the independent mandates of MPs with their supporters meant that local campaigns worked together better than the chaotic national National Party.</li>
@@ -2136,8 +2148,8 @@ I think reason 3 is especially doubtful given the <a href="https://www.politik.c
 <div class="layout-chunk" data-layout="l-body">
 
 </div>
-<p>Notably absent from that list are National strongholds like Pakuranga (where Simeon Brown won by 1.00510^{4}), Selwyn (where Nicola Grigg won by a distance of 4968) and Judith Collins’ own seat of Papakura (which she took by 5583 votes). Those are a lot of traditionally National seats where another party (i.e., Labour) won the most votes. Those are seats National may well have lost in a first-past-the-post system.</p>
-<p>But, perhaps National suffered from the success of its resurgent partners, ACT? Those are still votes for the right, so they shouldn’t count as real loses, the logic might go. While that certainly does help, it doesn’t make a real difference: In a good-old-fashioned two-party FPP election, National would still have lost resoundingly. When one sums the left bloc (Greens and Labour) and the right bloc (ACT and National), the right still only takes <del>12</del> <strong>9</strong> seats out of 72 avaliable, none of which they would hold by more than 2200 votes. Even Pakuranga, Judith Collin’s own seat, would have been marginal: The right led there by less than 156 votes.</p>
+<p>Notably absent from that list are National strongholds like Pakuranga (where Simeon Brown won by 10050), Selwyn (where Nicola Grigg won by a distance of 4968) and Judith Collins’ own seat of Papakura (which she took by 5583 votes). Those are a lot of traditionally National seats where another party (i.e., Labour) won the most votes. Those are seats National may well have lost in a first-past-the-post system.</p>
+<p>But, perhaps National suffered from the success of its resurgent partners, ACT? Those are still votes for the right, so they shouldn’t count as real loses, the logic might go. While that certainly does help, it doesn’t make a real difference: In a good-old-fashioned two-party FPP election, National would still have lost resoundingly. When one sums the left bloc (Greens and Labour) and the right bloc (ACT and National), the right still only takes <del>12</del> <strong>9</strong> seats out of 72 avaliable, none of which they would hold by more than <del>3000</del> <strong>2,200</strong> votes. <del>Even Selwyn, long National’s safest seat or close to it, would have been marginal: The right led there by less than 700 votes.</del> <strong>Even Epsom, long one of the bluest (in party vote terms) seats in the country, would have been held by only 349 votes.</strong></p>
 <div class="layout-chunk" data-layout="l-body">
 <table>
 <thead>
@@ -2243,7 +2255,184 @@ N.b., this interactive tool has not yet been updated to include special votes.
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="nzge-2020-all-the-votes-are-in_files/figure-html5/unnamed-chunk-10-1.png" width="624" /></p>
 </div>
+<h1 id="how-concentrated-was-each-parties-support-new">How concentrated was each parties’ support? [NEW]</h1>
+<p>My intuiton was that some parties (e.g., the Greens) tend to amass their party votes in a small number of electorates, by running up large totals, whereas others have broader geoegraphical support. The easiest way to see this is to calculate the number of electorate party vote totals one must add together to get to 50% (or any arbitrary proportion) of that party’s nationwide vote. These are the results of doing just that, bearing out my initial hypothesis – the Greens got more than half of their votes in only 20 electorates, whereas Labour took 32 electorates to recieve 50% of their overall votes. Naturally, the Māori Party also had very concentrated support – in the Māori seats.</p>
+<div class="layout-chunk" data-layout="l-body">
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">party</th>
+<th style="text-align: right;">n_elecs</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">ACT New Zealand</td>
+<td style="text-align: right;">25</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Green Party</td>
+<td style="text-align: right;">20</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Labour Party</td>
+<td style="text-align: right;">32</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Māori Party</td>
+<td style="text-align: right;">5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">National Party</td>
+<td style="text-align: right;">26</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">New Zealand First Party</td>
+<td style="text-align: right;">28</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h1 id="how-were-the-special-votes-distributed-new">How were the special votes distributed? [NEW]</h1>
+<div class="layout-chunk" data-layout="l-body">
+
+</div>
+<p>Special votes are not evenly distributed. Some electorates see many more voters casting special votes (which you must cast if you are registering on the day of the election, are overseas [like I was], or cast your vote in a different electorate to the one in which you are registered). Most commentators (and I) believe that special voters skew younger than the population as a whole – I am unaware of any empirical evidence for this supposition though, although perhaps it could be found in the excellent <a href="http://www.nzes.org">New Zealand Election Survey</a>. Generally, specials are expected to favour the left.</p>
+<p>These are the electorates sorted by the percentage of their party votes cast via a special vote:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["electorate"],"name":[1],"type":["chr"],"align":["left"]},{"label":["specials_pct"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["total_special_party_votes"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"Māngere","2":"33.10817","3":"10342"},{"1":"Manurewa","2":"31.26957","3":"9288"},{"1":"Hauraki-Waikato","2":"29.52373","3":"7042"},{"1":"Tāmaki Makaurau","2":"28.99069","3":"7626"},{"1":"Panmure-Ōtāhuhu","2":"27.65702","3":"8538"},{"1":"Auckland Central","2":"27.14731","3":"9839"},{"1":"Takanini","2":"26.32801","3":"9526"},{"1":"Te Tai Tonga","2":"26.26778","3":"7573"},{"1":"Te Tai Hauāuru","2":"25.91164","3":"6516"},{"1":"Te Tai Tokerau","2":"25.78154","3":"7043"},{"1":"Waiariki","2":"24.37380","3":"6471"},{"1":"Ikaroa-Rāwhiti","2":"23.92831","3":"5928"},{"1":"Mt Roskill","2":"23.07449","3":"8760"},{"1":"Epsom","2":"22.32192","3":"9304"},{"1":"Maungakiekie","2":"21.85662","3":"8137"},{"1":"Kaipara ki Mahurangi","2":"21.54515","3":"9861"},{"1":"Kelston","2":"21.46078","3":"7519"},{"1":"Papakura","2":"21.03198","3":"8360"},{"1":"Mt Albert","2":"20.76788","3":"8606"},{"1":"Wellington Central","2":"20.71908","3":"9906"},{"1":"Upper Harbour","2":"19.40284","3":"7785"},{"1":"Christchurch Central","2":"18.73410","3":"7512"},{"1":"Te Atatū","2":"18.72752","3":"7132"},{"1":"Bay of Plenty","2":"18.72394","3":"8352"},{"1":"New Lynn","2":"18.33859","3":"7614"},{"1":"Hamilton East","2":"17.90517","3":"7043"},{"1":"Tāmaki","2":"17.88065","3":"7416"},{"1":"Hamilton West","2":"17.83837","3":"7092"},{"1":"Botany","2":"17.35744","3":"6529"},{"1":"Rongotai","2":"17.28134","3":"7844"},{"1":"Wigram","2":"17.25549","3":"6662"},{"1":"Ilam","2":"17.04217","3":"7360"},{"1":"Christchurch East","2":"17.00864","3":"6872"},{"1":"North Shore","2":"16.69557","3":"7027"},{"1":"Taranaki-King Country","2":"16.57327","3":"6743"},{"1":"Northcote","2":"16.55603","3":"6634"},{"1":"Whangaparāoa","2":"16.34536","3":"7351"},{"1":"Mana","2":"16.31905","3":"6987"},{"1":"East Coast Bays","2":"16.31104","3":"6230"},{"1":"Pakuranga","2":"16.12696","3":"6021"},{"1":"Ōtaki","2":"16.07412","3":"7347"},{"1":"Waikato","2":"15.98875","3":"6596"},{"1":"Port Waikato","2":"15.95819","3":"6412"},{"1":"Hutt South","2":"15.62362","3":"7080"},{"1":"Tauranga","2":"15.21699","3":"6585"},{"1":"Remutaka","2":"15.19037","3":"6539"},{"1":"Ōhāriu","2":"15.09061","3":"6562"},{"1":"Rotorua","2":"15.05967","3":"5679"},{"1":"Taupō","2":"14.80472","3":"6463"},{"1":"Dunedin","2":"14.74440","3":"6755"},{"1":"Palmerston North","2":"14.73881","3":"5674"},{"1":"Banks Peninsula","2":"14.52948","3":"7161"},{"1":"East Coast","2":"14.11531","3":"5893"},{"1":"Selwyn","2":"14.04800","3":"5994"},{"1":"Tukituki","2":"13.89636","3":"5787"},{"1":"Rangitīkei","2":"13.86390","3":"5733"},{"1":"Whangārei","2":"13.28747","3":"5794"},{"1":"Northland","2":"13.28451","3":"5914"},{"1":"Nelson","2":"13.21589","3":"5799"},{"1":"Coromandel","2":"13.21031","3":"6142"},{"1":"Napier","2":"13.06829","3":"5450"},{"1":"New Plymouth","2":"13.03979","3":"5683"},{"1":"Whanganui","2":"12.96022","3":"5252"},{"1":"Kaikōura","2":"12.93786","3":"5507"},{"1":"Waimakariri","2":"12.54933","3":"5787"},{"1":"Southland","2":"12.47891","3":"4881"},{"1":"Taieri","2":"12.46772","3":"5553"},{"1":"Waitaki","2":"12.20333","3":"5332"},{"1":"West Coast-Tasman","2":"12.08451","3":"5148"},{"1":"Wairarapa","2":"11.74727","3":"5230"},{"1":"Invercargill","2":"10.94791","3":"4338"},{"1":"Rangitata","2":"10.37288","3":"4373"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+<p>Within the general electorates, there is a very clear urban/rural divide, showing much higher special voting rates in the cities. This makes sense demographically (citydwellers tend to be younger) and geographically (in rural areas, with larger electorates, it is more unlikely that the nearest polling booth to your house or work will be outside your electorate).</p>
+<p>The Māori electorates also all see very high special vote proportions. Apart from age (the Māori population is younger than the rest of New Zealand) and lower enrollment rates overall, I have no good theories as to why this is – the geographic explanation doesn’t appear to work for such large electorates.</p>
+<p>The next question which occured to me is where were special votes pivotal to determining election outcomes? These are the electorates where the apparent winner on election night turns out, once specials are counted, to have come second:</p>
+<div class="layout-chunk" data-layout="l-body">
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">electorate</th>
+<th style="text-align: left;">final_winner</th>
+<th style="text-align: left;">runner_up</th>
+<th style="text-align: right;">margin_election_night</th>
+<th style="text-align: right;">margin_final</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Maungakiekie</td>
+<td style="text-align: left;">RADHAKRISHNAN, Priyanca</td>
+<td style="text-align: left;">LEE, Denise</td>
+<td style="text-align: right;">580</td>
+<td style="text-align: right;">635</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Northland</td>
+<td style="text-align: left;">PRIME, Willow-Jean</td>
+<td style="text-align: left;">KING, Matt</td>
+<td style="text-align: right;">729</td>
+<td style="text-align: right;">163</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Whangārei</td>
+<td style="text-align: left;">HENDERSON, Emily</td>
+<td style="text-align: left;">RETI, Shane</td>
+<td style="text-align: right;">164</td>
+<td style="text-align: right;">431</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Electorate races though, of course, are mostly important to minor parties and to the pride of MPs and candidates. The crucial question is how special votes affect the makeup of Parliament through Party votes. That is basically a function of two things – how many special votes there were overall (496834 is the answer) and how those votes divided between the parties.</p>
+<p>This shows the overall proportions of party votes won by each party before and after specials. It confirms what I said in the introduction: Nothing really changed with specials, except that Labour’s lead got marginally larger and the Māori Party got enough for a second seat.</p>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="nzge-2020-all-the-votes-are-in_files/figure-html5/unnamed-chunk-15-1.png" width="624" /></p>
+</div>
+<p>You can only really see the effects in a table:</p>
+<div class="layout-chunk" data-layout="l-body">
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">party</th>
+<th style="text-align: right;">share_pre_specials</th>
+<th style="text-align: right;">share_specials</th>
+<th style="text-align: right;">share_post_specials</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Labour Party</td>
+<td style="text-align: right;">49.49</td>
+<td style="text-align: right;">54.75</td>
+<td style="text-align: right;">50.40</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">National Party</td>
+<td style="text-align: right;">26.98</td>
+<td style="text-align: right;">20.06</td>
+<td style="text-align: right;">25.78</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Green Party</td>
+<td style="text-align: right;">7.62</td>
+<td style="text-align: right;">9.34</td>
+<td style="text-align: right;">7.92</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ACT New Zealand</td>
+<td style="text-align: right;">8.03</td>
+<td style="text-align: right;">5.82</td>
+<td style="text-align: right;">7.65</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">New Zealand First Party</td>
+<td style="text-align: right;">2.68</td>
+<td style="text-align: right;">2.31</td>
+<td style="text-align: right;">2.62</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">The Opportunities Party (TOP)</td>
+<td style="text-align: right;">1.42</td>
+<td style="text-align: right;">1.96</td>
+<td style="text-align: right;">1.52</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">New Conservative</td>
+<td style="text-align: right;">1.52</td>
+<td style="text-align: right;">1.34</td>
+<td style="text-align: right;">1.49</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Māori Party</td>
+<td style="text-align: right;">1.01</td>
+<td style="text-align: right;">1.95</td>
+<td style="text-align: right;">1.17</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Aotearoa Legalise Cannabis Party</td>
+<td style="text-align: right;">0.32</td>
+<td style="text-align: right;">1.16</td>
+<td style="text-align: right;">0.47</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ONE Party</td>
+<td style="text-align: right;">0.27</td>
+<td style="text-align: right;">0.33</td>
+<td style="text-align: right;">0.28</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>There is nothing too surprising there: The left wing parties did better in specials, as expected.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<section class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>The overall party vote percentage National recieved did not fall massively with the inclusion of the special votes (from 26.8% before to 25.6% after), but the fact that that small 1.2% swing shifted three solidly blue electorates to having Labour pluralities in the party vote simply shows how badly National were beaten.<a href="#fnref1" class="footnote-back">↩</a></p></li>
+</ol>
+</section>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
