@@ -1,9 +1,33 @@
 ---
-title: "About this blog"
-description: |
-  Some additional details about the blog
+title: "About Me"
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 ```
+
+Hi. My name is [Mitchell Palmer](https://www.mitchellpalmer.nz). I am a first year 
+undergraduate at [Yale-NUS College](http://yale-nus.edu.sg/), reading for a Bachelor of 
+Arts with Honours. I intend to major in Philosophy, Politics, and Economics, with a 
+minor in Mathematical, Computational, and Statistical Sciences.
+
+Prior to matriculating at Yale-NUS, I worked for the Parliamentary Service in New
+Zealand. While there, I worked at the intersection of politics and technology. Now,
+I work occasionally as a political technology consultant for New Zealand causes and 
+do freelance software development work for organisations, both politcal and not.
+Here is my [CV/resume](https://www.mitchellpalmer.nz).
+
+This blog contains my various rants, ramblings, and reckons. I am passionate about
+economics, finance, politics, and technology, so I expect those topics to encompass
+the vast majority of content here.
+
+My hobbies include debating, programming, and rugby refereeing. I am a proficient 
+programmer in Python, R, SQL, JavaScript (and TypeScript), and HTML/CSS, but I have some
+experience with C++, OCaml, and a variety of other languages. As a debater, I have had
+a modicum of success, including representing New Zealand while I was at secondary 
+school, winning a variety of novice university titles, and coaching a regional
+representative team.
+
+If you want to find out more about me or contact me, you can follow me on Twitter at
+@[M_W_Palmer](https://twitter.com/m_w_palmer), connect with me on
+[LinkedIn](https://www.linkedin.com/feed/), visit my [main website](https://www.mitchellpalmer.nz), see my Github profile at [mitchellpalmer](https://github.com/mitchellpalmer), or email me at mp (at) mitchellpalmer.nz

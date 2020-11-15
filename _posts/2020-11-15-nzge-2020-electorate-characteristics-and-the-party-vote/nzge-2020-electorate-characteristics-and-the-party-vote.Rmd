@@ -19,6 +19,7 @@ output:
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
+**Warning: This post is based on the election night results. Since then an extra
+half a million votes have been counted. Use these insights with caution.**
+
 As a sequel to my [Election Night electorate-level analysis](posts/2020-11-15-nz-general-election-2020-election-night-analysis-by-electorate/), I created this [interactive tool](https://mitchellpalmer.shinyapps.io/Election2020Interactive/) to allow users to visualise the relationships between electorate characteristics (e.g., religiosity, income, home-ownership, age) and the party vote recieved by the different parties.
-
-
