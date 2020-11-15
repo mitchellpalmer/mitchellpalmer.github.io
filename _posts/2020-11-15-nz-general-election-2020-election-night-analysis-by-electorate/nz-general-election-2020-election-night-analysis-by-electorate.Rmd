@@ -25,6 +25,7 @@ library(readr)
 library(wesanderson)
 require(gridExtra)
 library(sjPlot)
+library(rmarkdown)
 
 data <- read_csv("observations_2020-10-18.csv")
 observations <- data %>% 
@@ -41,7 +42,7 @@ pc <- function(n) {
 }
 ```
 
-**The data have been updated. They now represent 100% of votes counted on election night.**
+**The data have been updated. They now represent 100% of votes counted on election night.** *This post was originally published on [RPubs](https://rpubs.com/mitchellpalmer/677060), but now I've moved it to my own Github pages site.*
 
 Wow. What a result. The broad national narrative of Election 2020 for each party seems clear: 
 
@@ -227,17 +228,19 @@ cv_vs_pv_plot
 
 The obvious question then is "What about that `r pc(1-summary(party_specific_cv_model)$adj.r.squared)`%"? Which candidates did well? By regressing the candidate vote against both the party from which the candidate comes and that party's party vote, we can come up with the predicted result of an 'average' National/Labour candidate standing in that seat and work out which candidates beat that 'benchmark'. Here are the list from Labour:
 
-```{r, echo=F} 
-knitr::kable(big_2_in_generals %>% 
+```{r, echo=F, layout="l-screen-inset"} 
+paged_table(big_2_in_generals %>% 
                 filter(party=='Labour Party') %>% 
                 arrange(desc(outperformance)) %>% 
                 select(electorate, candidate, winner,
                        predicted_cv, candidate_vote, 
                        outperformance))
 ```
+
 And from National:
-```{r, echo=F}
-knitr::kable(big_2_in_generals %>% 
+
+```{r, echo=F, layout="l-screen-inset"}
+paged_table(big_2_in_generals %>% 
                 filter(party=='National Party') %>% 
                 arrange(desc(outperformance)) %>% 
                 select(electorate, candidate, winner, 
