@@ -1,0 +1,285 @@
+---
+title: "NZGE 2020: Election Night Analysis by Electorate"
+description: |
+  My analysis of the 2020 New Zealand general electorate, divided by electorate, based
+  on the results recieved on or shortly after election night. 
+author:
+  - name: Mitchell Palmer
+    url: https://mitchellpalmer.nz
+    affiliation: Yale-NUS College
+date: 2020-10-17
+categories:
+  - New Zealand
+  - Politics
+  - Elections
+output:
+  distill::distill_article:
+    self_contained: true
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(readr)
+library(wesanderson)
+require(gridExtra)
+library(sjPlot)
+
+data <- read_csv("observations_2020-10-18.csv")
+observations <- data %>% 
+  group_by(electorate) %>%
+  mutate(rank = rank(desc(candidate_vote)),
+         winner = (rank==1)) %>%
+  ungroup()
+
+relevant_parties <- c("Labour Party", "National Party", "ACT New Zealand", "Green Party", "Māori Party", "New Zealand First Party")
+big_two <- c("Labour Party", "National Party")
+
+pc <- function(n) {
+  return(round(n*100, 2))
+}
+```
+
+**The data have been updated. They now represent 100% of votes counted on election night.**
+
+Wow. What a result. The broad national narrative of Election 2020 for each party seems clear: 
+
+* Labour got a stonking victory, delivering a massive personal mandate for Jacinda Ardern
+* National had a dismal night, which managed to be worse than expected
+* ACT had a great night, confirming months of positive polling
+* The Greens outperformed, though perhaps Labour's result was marginally too good for their tastes.
+* The Maori Party might be back from the dead
+* New Zealand First should be dead for good -- although making that prediction is perhaps never wise
+
+However there is also much to be said about the individual constituencies at play. That is what I'm going to do in this post. I'm not making an argument in this post, just exploring the data to see what happens.
+
+A couple of notes first:
+
+1. These data were scraped from the Electoral Commissions website at around 1am NZT, when just under 100% of **advance and ordinary votes** had been counted. They may have changed marginally since then. **N.B. This is no longer true. See the note above.**
+2. Special votes won't be counted for some time, which, given how tight some of the constituency results were, might effect this analysis.  
+3. This analysis was conducted late at night -- taking advantage of my time difference from being based in Singapore -- and quickly so it might not be right. I have released [my source code on Github](https://github.com/mitchellpalmer/Election2020), please let me know if something looks off.
+4. Please feel free to email me at mp (at) mitchellpalmer.nz if you have any questions.
+
+# Why is this interesting? 
+Finding out where the votes for each party were found tells us a lot about their electoral strategy and the coalitions they have built. It also lets us find out who the most popular MPs are, aside from their party affiliation.
+
+This election, however, it is particularly interesting for two reasons.
+
+Firstly, because of the utter implosion of the National party vote but the smaller fall in their electorate votes, a significant proportion of National's seats will be filled by electorate MPs. Thus, while your electorate vote may not decide the government, it will shape the balance of power within the opposition. 
+
+Secondly, three minor parties may have managed to sieze or hold electorates:  ACT retained its traditional stronghold of Epsom with an increased majority; the Maori Party have most likely siezed Waiariki; and, after a much-reported-on three-way race, the Greens look to have taken Auckland Central. Given the coat-tailing rules in MMP, a growing trend of minor parties winning electorates could substantially change the make-up of Parliament.
+
+# How did the parties do?
+```{r, echo=FALSE}
+total_pv = sum(observations$party_vote, na.rm = T)
+total_cv = sum(observations$candidate_vote, na.rm = T)
+
+overall_performance <- observations %>% 
+  group_by(party) %>% filter(party %in% relevant_parties) %>%
+  summarise(party_vote = pc(sum(party_vote, na.rm = T)/total_pv),
+            candidate_vote = pc(sum(candidate_vote,na.rm =T)/total_cv)) 
+
+longer <- overall_performance %>%
+  pivot_longer(c("party_vote", "candidate_vote"), names_to = "vote_type")
+
+ggplot(longer) +
+  geom_col(mapping=aes(
+    x=party,
+    y=value,
+    fill=vote_type
+  ), position = 'dodge') +
+  scale_fill_manual(values=wes_palette(n=3, name="GrandBudapest2"),
+                    name="Vote Type",
+                    breaks=c("candidate_vote", "party_vote"),
+                    labels=c("Candidate Vote", "Party Vote")) +
+  theme(legend.position='bottom') +
+  ggtitle("Performance on Candidate and Party Votes") +
+  ylab("% votes") + xlab("")
+
+won_electorate_votes <- observations %>% group_by(electorate) %>%
+  filter(candidate_vote==max(candidate_vote, na.rm = T)) %>%
+  group_by(party) %>%
+  summarise(cv=n())
+
+won_party_votes <- observations %>% group_by(electorate) %>%
+  filter(party_vote==max(party_vote, na.rm = T)) %>%
+  group_by(party) %>%
+  summarise(pv=n())
+
+longer_seats <- inner_join(won_electorate_votes, won_party_votes, by='party') %>%
+  pivot_longer(c('cv', 'pv'), names_to = "vote_type")
+
+ggplot(longer_seats) +
+  geom_col(mapping=aes(
+    x=party,
+    y=value,
+    fill=vote_type
+  ), position = 'dodge') +
+  scale_fill_manual(values=wes_palette(n=3, name="GrandBudapest2"),
+                    name="Vote Type",
+                    breaks=c("cv", "pv"),
+                    labels=c("Candidate Vote", "Party Vote")) +
+  ggtitle("Electorate Pluralities on Candidate and Party Votes") +
+  ylab("Seats in which the party achieved plurality") + xlab("") +
+  theme(legend.position="bottom")
+
+```
+
+Clearly, National significantly outperformed in candidate votes compared to their party vote performance. That is mirrored in the constituency counts: National had the plurality (i.e., the most votes) of candidate votes in 26 electorates, but the plurality of party votes in only 4.  Why? Three possibilities occur to me (ranked in order of estimated importance): 
+
+1. Electorate votes are sticky: Perhaps voters are less willing to abandon their local MP, to whom they can attach a face and a name, than parties, which after all are simply brands. Given National won the most electorates in 2017, that this stickiness favoured National is unsurprising.
+2. National's local campaigns were better than their national campaign: Perhaps the collegial nature of constituency committees and the independent mandates of MPs with their supporters meant that local campaigns worked together better than the chaotic national National Party.
+3. National's candidates were better than Labour's candidates: In my view, this is definitely true in many parts of the country (e.g., Hutt South), but I struggle to think of any non-partisan reason this would be true generally. If it is true though, it certainly would help explain this phenomenon.
+
+```{r, echo=FALSE}
+act_total <- sum(observations$candidate_vote[observations$party=='ACT New Zealand'], na.rm = T)
+act_epsom <- (observations %>% filter(electorate == 'Epsom' & party == 'ACT New Zealand'))$candidate_vote
+
+green_total <- sum(observations$candidate_vote[observations$party=='Green Party'], na.rm = T)
+green_ac <- (observations %>% filter(electorate == 'Auckland Central' & party == 'Green Party'))$candidate_vote
+
+n_green_seats <- 72-(sum(is.na((observations %>% filter(party == "Green Party"))$candidate_vote)))
+```
+
+As an aside, readers may be surprised to see such strong candidate vote performances from ACT and Greens, both of which have been known to run party vote-focused campaigns. This can mostly be explained by strong performances in their targetted 'backstop' seats (Epsom and Auckland Central), which they presumably seek/sought as an insurance policy to keep them in Parliament if they recieved less than 5% of the party vote. Indeed, `r pc(act_epsom/act_total)`% of ACT's total electorate votes were in Epsom and `r pc(green_ac/green_total)`% of the Greens' total electorate votes were in Auckland Central. By contrast, if Green candidate votes were equally distributed across the country, given they ran in `r n_green_seats` seats, one would expect them to have recieved `r pc(1/n_green_seats)`% of their candidate votes in each seat.
+
+As mentioned above, the National Party achieved a plurality in only four of the 72 electorates this election. Which were those seats? 
+
+```{r, echo=FALSE}
+knitr::kable(observations %>% group_by(electorate) %>%
+  filter(party_vote==max(party_vote, na.rm = T)) %>%
+  mutate(party_vote_share=
+           round(party_vote/total_votes * 100,2)) %>%
+  select(electorate, party, party_vote_share) %>%
+  filter(party != "Labour Party"))
+```
+
+```{r, echo=FALSE}
+top_two <- observations %>% filter(rank %in% c(1,2))
+
+lab_in_national_seat <- top_two %>% filter(party=='Labour Party' & rank==2 & !(electorate == "Auckland Central"))
+national_winners <- top_two %>% filter(party=='National Party' & rank==1)
+
+majorities <- inner_join(national_winners, lab_in_national_seat, by='electorate', suffix=c('.nat', '.lab')) %>%
+  mutate(majority = candidate_vote.nat - candidate_vote.lab) %>% 
+  select(electorate, candidate.nat, candidate.lab, majority)
+```
+
+Notably absent from that list are National strongholds like Pakuranga (where Simeon Brown won by `r (majorities %>% filter(electorate=="Pakuranga"))$majority`), Selwyn (where Nicola Grigg won by a distance of `r (majorities %>% filter(electorate=="Selwyn"))$majority`) and Judith Collins' own seat of Papakura (which she took by `r (majorities %>% filter(electorate=="Papakura"))$majority` votes). Those are a lot of traditionally National seats where another party (i.e., Labour) won the most votes. Those are seats National may well have lost in a first-past-the-post system.
+
+But, perhaps National suffered from the success of its resurgent partners, ACT? Those are still votes for the right, so they shouldn't count as real loses, the logic might go. While that certainly does help, it doesn't make a real difference: In a good-old-fashioned two-party FPP election, National would still have lost resoundingly. When one sums the left bloc (Greens and Labour) and the right bloc (ACT and National), the right still only takes 12 seats out of 72 avaliable, none of which they would hold by more than 3000 votes. Even Selwyn, long National's safest seat or close to it, would have been marginal: The right led there by less than 700 votes.
+
+```{r, echo=FALSE}
+knitr::kable(observations %>% 
+  group_by(electorate) %>%
+  pivot_wider(names_from = party,
+              values_from = party_vote) %>%
+  mutate(right_bloc = sum(`National Party`, `ACT New Zealand`, na.rm = T),
+         left_bloc = sum(`Labour Party`, `Green Party`, na.rm = T)) %>%
+  summarise(right_bloc = max(right_bloc),
+            left_bloc = max(left_bloc),) %>%
+  filter(right_bloc>left_bloc) %>%
+  mutate(right_majority = right_bloc-left_bloc) %>%
+  arrange(desc(right_majority)))
+  
+```
+
+# How did the candidates do?
+
+```{r, echo=FALSE, preview=TRUE}
+
+maori_seats <- c("Hauraki-Waikato","Ikaroa-Rāwhiti", "Tāmaki Makaurau","Te Tai Hauāuru", "Te Tai Tokerau","Te Tai Tonga","Waiariki")
+
+big_2_in_generals <- observations %>% filter(party %in% big_two & !(electorate %in% maori_seats))
+
+seat_vs_party_model <- lm(candidate_vote ~ party_vote, data=big_2_in_generals)
+                      
+cv_vs_pv_plot <- ggplot(
+  big_2_in_generals,
+  mapping = aes(x = party_vote,
+                y = candidate_vote,
+                label = candidate)
+) +
+  geom_point(
+    mapping = aes(colour=party)
+  ) +
+  geom_abline(slope = coef(seat_vs_party_model)[[2]], intercept = coef(seat_vs_party_model)[[1]]) +
+  labs(title = "Relationship between Party Vote and Candidate Vote",
+       subtitle = "Candidates from the Big Two Parties in the 72 General Electorates")
+
+
+big_2_in_generals$party.f <- as.factor(big_2_in_generals$party)
+
+party_specific_cv_model <- lm(candidate_vote ~ party.f + party_vote, data=big_2_in_generals)
+big_2_in_generals$predicted_cv <- round(predict(party_specific_cv_model, big_2_in_generals))
+big_2_in_generals$outperformance <- big_2_in_generals$candidate_vote - big_2_in_generals$predicted_cv
+
+
+
+```
+
+There appears to be a strong relationship between how a party performed and how its candidates performed. Plugging the party vote and candidate vote into a simple linear regression shows that, for a major party candidate in a general electorate,  `r pc(summary(seat_vs_party_model)$adj.r.squared)`% of the variation in their candidate vote can be predicted from the party vote. Once the model accounts for the overall differences between National and Labour this year, the proportion accounted for shoots up to `r pc(summary(party_specific_cv_model)$adj.r.squared)`%.
+
+```{r, echo=F}
+cv_vs_pv_plot
+```
+
+The obvious question then is "What about that `r pc(1-summary(party_specific_cv_model)$adj.r.squared)`%"? Which candidates did well? By regressing the candidate vote against both the party from which the candidate comes and that party's party vote, we can come up with the predicted result of an 'average' National/Labour candidate standing in that seat and work out which candidates beat that 'benchmark'. Here are the list from Labour:
+
+```{r, echo=F} 
+knitr::kable(big_2_in_generals %>% 
+                filter(party=='Labour Party') %>% 
+                arrange(desc(outperformance)) %>% 
+                select(electorate, candidate, winner,
+                       predicted_cv, candidate_vote, 
+                       outperformance))
+```
+And from National:
+```{r, echo=F}
+knitr::kable(big_2_in_generals %>% 
+                filter(party=='National Party') %>% 
+                arrange(desc(outperformance)) %>% 
+                select(electorate, candidate, winner, 
+                       predicted_cv, candidate_vote, 
+                       outperformance))
+```
+
+Now, we shouldn't immediately conclude from this that every Labour MP should have campaigned like Duncan Webb and every National MP should have campaigned like Chris Bishop. An MP who did a bad job spreading the  party vote message in their constituency, but did a passable one promoting themselves, would do very well on this metric. But we can conclude that a constituency candidate's fate is not entirely in the hands of their party -- they can change it in or against their own favour. (A better model would also account for incumbency bias -- outperformers tend to be incumbents, probably because of their preexisting local profile -- and perhaps also the depth of the field -- so as to avoid unduly punishing candidates like Helen White who run in the three-horse races.)
+
+
+# Where did they do well?
+This will be a longer post sometime in the future. In that post, I'll see what predicts support for each of the parties based on the characteristics of the constituencies. But, in the mean time, here are the party votes cast in the general electorates aggregated into some rough regions (please excuse my poor New Zealand geography, especially residents of the Central North Island -- I have no reason to be bad at it. I just am.):
+
+**The aforementioned post is avaliable here: https://mitchellpalmer.shinyapps.io/Election2020Interactive/**
+
+```{r, echo=FALSE}
+coded_data <- read_csv("Coded_to_regions.csv", 
+    col_names = FALSE, col_types = cols(X1 = col_skip()))
+electorate_to_regions <- coded_data %>% 
+  select(electorate=X2, region=X3)
+
+big_four_parties <- c(big_two, "ACT New Zealand", "Green Party")
+with_regions <- inner_join(observations, electorate_to_regions, suffix=c("",".r")) %>%
+  mutate(party_excl_minor = if_else(party %in% big_four_parties, party, "Minor")) %>%
+  group_by(party_excl_minor, region) %>%
+  summarise(
+    party_vote = sum(party_vote, na.rm=T)
+  )
+
+ggplot(with_regions, 
+       aes(fill=party_excl_minor, y=party_vote, x=region)) +
+  scale_y_continuous(labels = scales::percent_format()) +
+  scale_fill_manual(breaks = c( "Labour Party", "National Party", "ACT New Zealand", "Green Party", "Minor"), 
+                       values=c( "coral1", "cornflowerblue", "gold1", "darkseagreen2", "grey"),
+                    name = "Party") + 
+  geom_bar(position="fill", stat="identity") +
+  coord_flip() +
+  labs(
+    title = "Party Vote by Rough Region"
+  )
+
+
+
+```
+
