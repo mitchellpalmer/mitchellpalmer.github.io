@@ -1,0 +1,13 @@
+name: "mitchell-palmer-distill-blog"
+title: "Mitchell Palmer"
+description: |
+ Undergraduate Nonsense
+output_dir: "docs"
+navbar:
+  right:
+    - text: "Home"
+      href: index.html
+    - text: "About"
+      href: about.html
+source_url: https://github.com/rstudio/distill
+output: distill::distill_article
