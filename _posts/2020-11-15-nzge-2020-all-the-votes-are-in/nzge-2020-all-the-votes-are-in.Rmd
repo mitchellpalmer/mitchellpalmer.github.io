@@ -15,6 +15,9 @@ date: 11-15-2020
 output:
   distill::distill_article:
     self_contained: false
+    toc: true
+    toc_depth: 2
+
 ---
 
 
@@ -34,7 +37,7 @@ observations <- data %>%
          winner = (rank==1)) %>%
   ungroup()
 
-relevant_parties <- c("Labour Party", "National Party", "ACT New Zealand", "Green Party", "Maori Party", "New Zealand First Party")
+relevant_parties <- c("Labour Party", "National Party", "ACT New Zealand", "Green Party", "Māori Party", "New Zealand First Party")
 big_two <- c("Labour Party", "National Party")
 
 pc <- function(n) {
@@ -42,9 +45,11 @@ pc <- function(n) {
 }
 ```
 
-*I wrote a [post on Election Night](posts/2020-11-15-nz-general-election-2020-election-night-analysis-by-electorate/) laying out how the various parties performed across the 72 electorates in New Zealand. Since then, approximately half a million votes more have been counted. A number of people, both on Twitter and in private correspondence, have asked me to update my analysis with those new numbers. That's what this post does.*
+I wrote a [post on Election Night](/posts/2020-11-15-nz-general-election-2020-election-night-analysis-by-electorate/) laying out how the various parties performed across the 72 electorates in New Zealand. Since then, approximately half a million more [special](https://www.rnz.co.nz/news/political/428614/election-2020-special-votes-explained) votes have been counted. A number of people, both on Twitter and in private correspondence, have asked me to update my analysis with those new numbers. That's what this post does.
 
-*The specials did not really shift the broad picture -- destruction for National and elation for Labour -- but simply emphasised it (with the possible exeception of the Maori Party getting two MPs). This post is therefore  essentially a copy-paste of my previous analysis with annotations explaining how the inclusion of the special votes has changed the story:* ~~Struck-through~~ *text is text which appeared in the original version, but is no longer true when special votes are counted.* **Bold** *text is new with special votes. The graphs and tables and in-text numbers are entirely populated with new data. You can see the pre-specials figures [here](posts/2020-11-15-nz-general-election-2020-election-night-analysis-by-electorate/).*
+The specials did not really shift the broad picture -- destruction for National and elation for Labour -- but simply emphasised it (with the possible exeception of the Māori Party getting two MPs).This post is therefore  essentially a copy-paste of my previous analysis with annotations explaining how the inclusion of the special votes has changed the story: ~~Struck-through~~ text is text which appeared in the original version, but is no longer true when special votes are counted. **Bold** text is new with special votes. The graphs and tables and in-text numbers are entirely populated with new data. You can see the pre-specials figures [here](/posts/2020-11-15-nz-general-election-2020-election-night-analysis-by-electorate/). Some new analysis, including of the effect and spread of special votes, is included at the end.
+
+---
 
 Wow. What a result. The broad national narrative of Election 2020 for each party seems clear: 
 
@@ -52,7 +57,7 @@ Wow. What a result. The broad national narrative of Election 2020 for each party
 * National had a dismal night, which managed to be worse than expected
 * ACT had a great night, confirming months of positive polling
 * The Greens outperformed, though perhaps Labour's result was marginally too good for their tastes.
-* The Māori Party might be back from the dead
+* The Māori Party ~~might be~~ **are** back from the dead
 * New Zealand First should be dead for good -- although making that prediction is perhaps never wise
 
 However there is also much to be said about the individual constituencies at play. That is what I'm going to do in this post. I'm not making an argument in this post, just exploring the data to see what happens.
@@ -66,7 +71,9 @@ A couple of notes first:
 
 <aside>
 I no longer have the excuse of lateness or urgency if anything is broken, but please 
-still let me know if you spot anything amiss.
+still let me know if you spot anything amiss. 
+
+In addition, I should disclose that I worked for ACT during this election, not that there is much opportunity for any of this analysis to take a partisan slant.
 </aside>
 
 
@@ -135,11 +142,7 @@ ggplot(longer_seats) +
 
 ```
 
-Clearly, National significantly outperformed in candidate votes compared to their party vote performance. That is mirrored in the constituency counts: National had the plurality (i.e., the most votes) of candidate votes in ~~26~~ **23** electorates, but the plurality of party votes in only ~~4~~ **1**.  Why? Three possibilities occur to me (ranked in order of estimated importance): 
-
-<aside>
-The overall party vote percentage National recieved did not fall massively with the inclusion of the special votes (from 26.8% before to 25.6% after), but the fact that that small 1.2% swing shifted three solidly blue electorates to having Labour pluralities in the party vote simply shows how badly National were beaten.
-</aside>
+Clearly, National significantly outperformed in candidate votes compared to their party vote performance. That is mirrored in the constituency counts: National had the plurality (i.e., the most votes) of candidate votes in ~~26~~ **23** electorates, but the plurality of party votes in only ~~four~~ **one**^[The overall party vote percentage National recieved did not fall massively with the inclusion of the special votes (from 26.8% before to 25.6% after), but the fact that that small 1.2% swing shifted three solidly blue electorates to having Labour pluralities in the party vote simply shows how badly National were beaten.].  Why? Three possibilities occur to me (ranked in order of estimated importance): 
 
 1. Electorate votes are sticky: Perhaps voters are less willing to abandon their local MP, to whom they can attach a face and a name, than parties, which after all are simply brands. Given National won the most electorates in 2017, that this stickiness favoured National is unsurprising.
 2. National's local campaigns were better than their national campaign: Perhaps the collegial nature of constituency committees and the independent mandates of MPs with their supporters meant that local campaigns worked together better than the chaotic national National Party.
@@ -183,9 +186,9 @@ majorities <- inner_join(national_winners, lab_in_national_seat, by='electorate'
   select(electorate, candidate.nat, candidate.lab, majority)
 ```
 
-Notably absent from that list are National strongholds like Pakuranga (where Simeon Brown won by `r (majorities %>% filter(electorate=="Pakuranga"))$majority`), Selwyn (where Nicola Grigg won by a distance of `r (majorities %>% filter(electorate=="Selwyn"))$majority`) and Judith Collins' own seat of Papakura (which she took by `r (majorities %>% filter(electorate=="Papakura"))$majority` votes). Those are a lot of traditionally National seats where another party (i.e., Labour) won the most votes. Those are seats National may well have lost in a first-past-the-post system.
+Notably absent from that list are National strongholds like Pakuranga (where Simeon Brown won by `r format((majorities %>% filter(electorate=="Pakuranga"))$majority, scientific=FALSE)`), Selwyn (where Nicola Grigg won by a distance of `r (majorities %>% filter(electorate=="Selwyn"))$majority`) and Judith Collins' own seat of Papakura (which she took by `r (majorities %>% filter(electorate=="Papakura"))$majority` votes). Those are a lot of traditionally National seats where another party (i.e., Labour) won the most votes. Those are seats National may well have lost in a first-past-the-post system.
 
-But, perhaps National suffered from the success of its resurgent partners, ACT? Those are still votes for the right, so they shouldn't count as real loses, the logic might go. While that certainly does help, it doesn't make a real difference: In a good-old-fashioned two-party FPP election, National would still have lost resoundingly. When one sums the left bloc (Greens and Labour) and the right bloc (ACT and National), the right still only takes ~~12~~ **9** seats out of 72 avaliable, none of which they would hold by more than 2200 votes. Even Pakuranga, Judith Collin's own seat, would have been marginal: The right led there by less than 156 votes.
+But, perhaps National suffered from the success of its resurgent partners, ACT? Those are still votes for the right, so they shouldn't count as real loses, the logic might go. While that certainly does help, it doesn't make a real difference: In a good-old-fashioned two-party FPP election, National would still have lost resoundingly. When one sums the left bloc (Greens and Labour) and the right bloc (ACT and National), the right still only takes ~~12~~ **9** seats out of 72 avaliable, none of which they would hold by more than ~~3000~~ **2,200** votes. ~~Even Selwyn, long National's safest seat or close to it, would have been marginal: The right led there by less than 700 votes.~~ **Even Epsom, long one of the bluest (in party vote terms) seats in the country, would have been held by only 349 votes.**
 
 ```{r, echo=FALSE}
 knitr::kable(observations %>% 
@@ -310,5 +313,154 @@ ggplot(with_regions,
 
 ```
 
+# How concentrated was each parties' support? [NEW]
+
+My intuiton was that some parties (e.g., the Greens) tend to amass their party votes in a small number of electorates, by running up large totals, whereas others have broader geoegraphical support. The easiest way to see this is to calculate the number of electorate party vote totals one must add together to get to 50% (or any arbitrary proportion) of that party's nationwide vote. These are the results of doing just that, bearing out my initial hypothesis -- the Greens got more than half of their votes in only 20 electorates, whereas Labour took 32  electorates to recieve 50% of their overall votes. Naturally, the Māori Party also had very concentrated support -- in the Māori seats.
+
+```{r}
+
+knitr::kable(observations %>% 
+  filter(party %in% relevant_parties) %>%
+  group_by(party) %>%
+  arrange(desc(party_vote)) %>%
+  mutate(culm_perc = cumsum(party_vote)/sum(party_vote),
+         party_rank = rank(desc(party_vote))) %>%
+  filter(culm_perc > 0.5) %>%
+  summarise(
+    n_elecs = min(party_rank)
+  ))
 
 
+  
+```
+
+# How were the special votes distributed? [NEW]
+
+```{r}
+
+data_election_night <- read_csv("observations_2020-10-18.csv")
+observations_election_night <- data_election_night %>% 
+  group_by(electorate) %>%
+  mutate(rank = rank(desc(candidate_vote)),
+         winner = (rank==1)) %>%
+  ungroup()
+
+comparison <- inner_join(observations, observations_election_night, by = c("electorate", "party", "candidate"),
+                         suffix = c(".after", ".before")) %>%
+  mutate(special_party_votes = party_vote.after - party_vote.before,
+         special_candidate_votes = candidate_vote.after - candidate_vote.before)
+
+```
+
+
+Special votes are not evenly distributed. Some electorates see many more voters casting special votes (which you must cast if you are registering on the day of the election, are overseas [like I was], or cast your vote in a different electorate to the one in which you are registered). Most commentators (and I) believe that special voters skew younger than the population as a whole -- I am unaware of any empirical evidence for this supposition though, although perhaps it could be found in the excellent [New Zealand Election Survey](http://www.nzes.org). Generally, specials are expected to favour the left.
+
+These are the electorates sorted by the percentage of their party votes cast via a special vote: 
+
+```{r}
+
+paged_table(comparison %>%
+  group_by(electorate) %>%
+  summarise(total_special_party_votes = sum(special_party_votes, na.rm=T),
+            total_party_votes = sum(party_vote.after, na.rm=T)) %>%
+  mutate(specials_pct = 100*total_special_party_votes/total_party_votes) %>%
+  select(electorate, specials_pct,total_special_party_votes) %>%
+  arrange(desc(specials_pct)))
+
+
+```
+
+Within the general electorates, there is a very clear urban/rural divide, showing much higher special voting rates in the cities. This makes sense demographically (citydwellers tend to be younger) and geographically (in rural areas, with larger electorates, it is more unlikely that the nearest polling booth to your house or work will be outside your electorate). 
+
+The Māori electorates also all see very high special vote proportions. Apart from age (the Māori population is younger than the rest of New Zealand) and lower enrollment rates overall, I have no good theories as to why this is -- the geographic explanation doesn't appear to work for such large electorates.
+
+The next question which occured to me is where were special votes pivotal to determining election outcomes? These are the electorates where the apparent winner on election night turns out, once specials are counted, to have come second: 
+
+```{r}
+
+knitr::kable(comparison %>% 
+  filter(winner.before != winner.after) %>%
+  group_by(electorate) %>%
+  select(party, candidate_vote.after, candidate_vote.before) %>%
+  mutate(
+    party = ifelse(party=="National Party", "N", "L")
+  ) %>%
+  pivot_wider(names_from=c(party), 
+              values_from=c("candidate_vote.before", "candidate_vote.after")) %>%
+  mutate(
+    margin_election_night = candidate_vote.before_N - candidate_vote.before_L,
+    margin_final =  candidate_vote.after_L - candidate_vote.after_N,
+  ) %>%
+  inner_join(
+    observations %>% filter(winner),
+    by = "electorate") %>%
+  mutate(final_winner = candidate) %>%
+  inner_join(
+    observations_election_night %>% filter(winner),
+    by = "electorate",
+    suffix = c("", "_election_night")
+  ) %>%
+  mutate(runner_up = candidate_election_night) %>%
+  select(
+    electorate, 
+    final_winner,
+    runner_up,
+    margin_election_night, 
+    margin_final
+  ))
+
+
+```
+
+Electorate races though, of course, are mostly important to minor parties and to the pride of MPs and candidates. The crucial question is how special votes affect the makeup of Parliament through Party votes. That is basically a function of two things -- how many special votes there were overall (`r format(sum(comparison$special_party_votes, na.rm=T), scientific=FALSE)` is the answer) and how those votes divided between the parties.
+
+This shows the overall proportions of party votes won by each party before and after specials. It confirms what I said in the introduction: Nothing really changed with specials, except that Labour's lead got marginally larger and the Māori Party got enough for a second seat.
+
+```{r}
+
+parliamentary_parties <- c(big_four_parties, "Māori Party")
+
+overall_obs <- bind_rows(observations_election_night %>% mutate(status = "Election Night"),
+                         observations %>% mutate(status = "Final Results")) %>%
+    mutate(party_excl_minor = if_else(party %in% parliamentary_parties, party, "Minor"))
+
+
+ggplot(overall_obs, 
+       mapping = aes(fill=party_excl_minor, y=party_vote, x=status)) +
+  scale_y_continuous(labels = scales::percent_format()) +
+  scale_fill_manual(breaks = c( "Labour Party", "National Party", "ACT New Zealand", "Green Party", "Māori Party", "Minor"), 
+                       values=c( "coral1", "cornflowerblue", "gold1", "darkseagreen2", "red","grey"),
+                    name = "Party") + 
+  geom_bar(position="fill", stat="identity") +
+  coord_flip() +
+  labs(
+    title = "Party Vote Before and After Specials"
+  )
+
+```
+
+You can only really see the effects in a table:
+
+```{r}
+
+total_enight_votes <- sum(comparison$party_vote.before, na.rm = T)
+total_final_votes <- sum(comparison$party_vote.after, na.rm = T)
+total_specials <- total_final_votes - total_enight_votes
+  
+knitr::kable((comparison %>% 
+  group_by(party) %>%
+  summarise(
+    election_night_pv = sum(party_vote.before, na.rm = T),
+    final_pv = sum(party_vote.after, na.rm = T)
+  ) %>%
+  mutate(
+    share_pre_specials = round(100*election_night_pv/total_enight_votes,2),
+    share_specials = round(100*(final_pv-election_night_pv)/total_specials,2),
+    share_post_specials = round(100*final_pv/total_final_votes,2),
+  ) %>%
+  arrange(desc(share_post_specials)) %>%
+  select(party, share_pre_specials, share_specials, share_post_specials))[1:10,])
+
+```
+
+There is nothing too surprising there: The left wing parties did better in specials, as expected. 
