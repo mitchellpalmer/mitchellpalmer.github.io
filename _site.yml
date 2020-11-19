@@ -2,7 +2,7 @@ name: "mitchell-palmer-distill-blog"
 title: "Mitchell Palmer"
 description: |
  Undergraduate Nonsense
-output_dir: "public"
+output_dir: "docs"
 repository_url: https://github.com/mitchellpalmer/mitchell-palmer-distill-blog
 twitter:
   site: "@M_W_Palmer"
