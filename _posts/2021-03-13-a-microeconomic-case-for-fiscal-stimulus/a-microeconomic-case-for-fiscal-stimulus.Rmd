@@ -1,0 +1,49 @@
+---
+title: "A Microeconomic/Classical Case for Fiscal Stimulus"
+description: |
+  A short description of the post.
+author:
+  - name: Mitchell Palmer
+    url: https://mitchellpalmer.nz
+date: 03-13-2021
+draft: true
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+One of the well-known arguments of Keynesian economics is that increased government spending (fiscal stimulus) is often neccesary during recessions to restore the macroeconomy to full employment. This argument is far from uncontroversial. Many macroeconomists, even those with Keynesian backgrounds, prefer monetary stimulus as a way of recovering from downturns. This has not stopped governments from undertaking unpredecently-large fiscal stimulus to combat the economic effects of the COVID-19 pandemic^[Some prefer to call the (American) COVID response a 'relief' package. Nonetheless, it is a package which uses the fiscal capacity of the government to attempt to boost economic activity. It is a fiscal stimulus.]: The United States has, for instance, injected a sum of money which exceeds the entire annual output of Italy into the economy.
+
+In this article, I attempt to side-step the inherently controversial macroeconomics and argue for fiscal stimulus from a purely classical perspective. Basically, I am going to argue why, even you believe economies are generally self-equilibrating or have some other non-Keynesian set of macroeconomic beliefs, you should support the government increasing certain types of expenditure during a recession. This is based on simply an argument about efficient resource usage.
+
+Consider a governmment which has a list of investments it would like to make eventually. That might mean new motorways it would like to build, new nuclear powerplants it would like to commission, or city streets it would like beautify. Whatever that list, governments neccesarily cannot fulfill all of the projects on it. Like basically every other economic actor, they have unlimited wants and limited resources.
+
+When I talk about the limited resources of the government, I do not mean money. I am referring to one layer deeper. I mean the actual real resources the government has access to, which, because of the government's monopoly on the use of force and its taxing power, is every real resource in the economy it governs. There are only a certain number of people in a given country, each of whom has a certain level of skills. Similarly, there is only a certain amount of industrial machinery in a country and only a certain amount of land. Obviously, each of these is variable in the medium to longer run, but at any given instant in time, they cannot be changed.
+
+Money is simply a claim on those limited resources in an economy. When I have \$100, I can purchase more things and therefore claim more of those limited number of manhours, machines, and acres of land than a person who has \$20. Thus, taxes, which take money out of the private sector, are essentially a transfer of resources to the control of the state. Similarly, when the government borrows money, it borrows it from someone. That someone (which might be a private saver, a pension fund, or a foreign central bank) is giving up his claim to resources today to the government, in exchange for the government giving him back more claims to resources in the future (i.e., the interest paid on the bond and the return of the principal). 
+
+When the government (or its agent) prints money to spend, this is a slightly more complex interaction, but still represents a transfer of resources to the control of the state. Consider if the total amount of money avaliable was \$$M$ trillion dollars before money printing and the total number of claimable resources in the economy was $Y$, then the amount of 'claim on resources' represented by \$1 trillion is $\frac{Y}{M}$. A person with \$$x$ trillion in money therefore commanded $x \cdot \frac{Y}{M}$ in resources. By increasing the money supply to $M + 1$, the government has therefore reduced the number of resources claimable by \$1 trillion to $\frac{Y}{M+1}$. Thus, the aforementioned person with \$$x$ trillion in his bank account now only controls $x \cdot \frac{Y}{M+1}$ in resources. Because the government has held onto the $1 trillion it printed, it increased its overall purchasing power at the expense of all other holders of money. The government has therefore transfered the control of resources from those who have money to itself.
+
+The point of making this distinction between money and resources clear is because it reframes what government spending is at its core about: Not taxes, interest rates, or inflation, but resource allocation. However the state gets the money, it is transferring resoures to itself. 
+
+This insight allows us to think about government spending in a fundamentally microeconomic way. The cost of government spending is essentially the value of leaving those resources in the private sector -- their opportunity cost. One good way to think about this is the military draft. Most conscription programmes during wartime have had exemptions for workers from certain occupations (e.g., farming and coal-mining in Britain during the Second World War). This represents a calculation by the state that the value of those resources (i.e., the manpower of certain young men) in the private sector is higher than their value on the front. The same argument goes for why older men are almost universally exempt from conscription: The opportunity cost of their time is higher (because as experienced workers, they could be more productive) and their value as soldiers is lower (because their physical fitness is likely to be lower).
+
+When large scale unemployment (of both people and capital) exists, neccesarily the value of leaving a given resource in the private sector is lower. In the medium-run, a flexible labour (or resource) market should theoretically end involuntary unemployment by reducing wages/prices until more employers wanted to hire workers and fewer workers wanted to work. This would reduce the expected value of leaving the resources in the private sector. But even if you believe that wages (and perhaps other prices) are downwardly sticky and therefore don't fall during recessions, high unemployment still reduces the value of leaving resources in the private sector. Consider the average member of the labour force^[In this paragraph, I am only referring to the private sector labour force. Obviously including the public sector in this calculation would the probability calculation I suggest below ridiculous. The private sector labour force is all those not working for the government who are either in work or looking for work. (In my view, it should also include those people who have 'given-up' looking for work, but this is a difficult statistical datapoint to collect.)]. Assume that the value of that worker in the private sector is equal to the (constant) wage that they get paid^[Obviously MPL$\gt$W often, but its a reasonable assumption to start with.] -- i.e., the value of the next unit of output they would produce is equal to their wages. But, given unemployment exists, there is a chance that leaving in them in the private sector will leave them unemployed. Thus, the actual value of leaving a worker in the private sector is equal to the probability they will be employed multiplied by that wage plus the probability that they remain unemployed multiplied by 0 (because someone not employed is neccesarily not producing output). The probability that they will be employed can be roughly estimated by $(1-\text{unemployment rate})$^[Obviously, the probability of unemployment will not be uniform across the labour force. Targetting workers from high-unemployment sectors would make the real resource cost of labour even loewer.]. Thus, if the unemployment rate increases, the expected value of resources remaining in the private sector is lower. The crucial insight here is to measure the cost of government projects in terms of resources used, rather than pure monetary expenditure. Thus, even if wages/prices do not adjust and the monetary cost of these projects does not change, the presence of involuntary unemployment reduces their real resource cost.
+
+By contrast, unless the recession has fundamentally changed the value of the projects the government wishes to undertake, the value of the resource in government use has not changed. The unemployment rate also doesn't figure here: Definitionally, if one is in government employment, one is not unemployed, so the probability of the resource being used to its full public value is 100%. 
+
+The implications of this argument are relatively clear: If the (opportunity) cost of government projects falls, more government projects will pass a cost-benefit analysis and more spending should thus be done. 
+One must, however, set up fiscal stimulus correctly for this to work. If the government outbids the private sector for resources which are more beneficial in the private market, it is essentially destroying value. This is particularly concerning as the economy recovers, if the expected value of
+
+
+
+
+
+
+
+
