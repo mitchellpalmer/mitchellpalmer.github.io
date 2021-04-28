@@ -1,0 +1,330 @@
+---
+title: "Is Everyone Special?"
+description: |
+  Statistically testing a cliche
+author:
+  - name: Mitchell Palmer
+    url: https://mitchellpalmer.nz
+date: 04-27-2021
+output:
+  distill::distill_article:
+    self_contained: false
+creative_commons: CC BY
+---
+
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(hrbrthemes)
+library(knitr)
+knitr::opts_chunk$set(echo = FALSE)
+
+
+theme_set(theme_ipsum())
+
+
+n_individuals <- 1000
+n_characteristics <- 500
+```
+
+People often say, "Everyone is special in some way". Or, alternatively, "everyone is good at something". Those seem like bold claims. Are they true? In this post, I use the magic of simulations to test the plausibility of everyone being special. Spoiler alert: How special everyone is depends on how much our measures depend on each other. If what we regard as important skills depend only on a few meta-skills, then there is likely to be large numbers of people left behind. If, by contrast, our skills are heterogenus and not interrelated, then most people will be able to make up for difficiencies in some areas with good performances elsewhere. This would be a world with less inequality.
+
+
+## A Very Simple Model
+Let's start with a pretty simple (and inaccurate) model. Let's say: 
+
+1. There are `r n_characteristics` discrete 'things' which someone can be special in (characteristics, I call them -- they could be height, IQ, hand-eye coordination, etc.).
+2. Every individual has an quantifiable 'score' at each of those things. 
+3. Those quantifiable characteristics are [normally distributed](https://en.wikipedia.org/wiki/Normal_distribution).
+4. These characteristics are independent from each other (e.g., how special you are at one thing is not related to how special you are at any other thing)
+
+Further, let's define being 'special' as being in the top 10% of the population in that characteristic. Given those parameters, how many people, out of `r n_individuals`, do you think will be special in absolutely nothing? Let's find out.
+
+First, I create `r n_individuals` individuals. For each of those individuals, I then compute a random score for each of the `r n_characteristics` characteristics, following a normal distribution. Those scores range from (approximately) -3 to (approximately) 3, with a mean at 0 and a standard deviation of 1. 
+
+```{r echo=TRUE}
+characteristics <- expand.grid(individual = 1:n_individuals, 
+                               characteristic = 1:n_characteristics)
+characteristics$score <- rnorm(n_individuals * n_characteristics)
+```
+
+Here's a random sample of the individual/characteristic pairs created by that code, together with the randomly-generated scores.
+
+```{r}
+kable(sample_n(characteristics, 5))
+```
+
+
+This graph shows the distribution of scores in a random subset of characteristics, as created by the above proccess.
+
+
+```{r}
+ggplot(data = characteristics %>% filter(characteristic == sample(characteristics$characteristic, 3))) +
+  geom_histogram(mapping=aes(
+    x = score
+  )) +
+  scale_x_continuous(limits = c(-2.5,2.5)) +
+  facet_wrap(~characteristic) +
+  ggtitle("Score distributions in a random subset of characteristics")
+
+```
+
+Now, I have computed a "overall" score for each individual. This is simply each individual's average score accross all `r n_characteristics` characteristics. Because each of the characteristics is independent from each other, they will typically cancel each other out. The chances of someone scoring highly in many characteristics are low. This generates a much tighter distribution for 'overalls'. This is shown below.
+
+```{r echo=TRUE}
+by_individual <- characteristics %>% 
+  group_by(individual) %>% 
+  summarise(overall = mean(score))
+```
+
+
+```{r}
+ggplot(by_individual) +
+  geom_histogram(mapping=aes(x=overall)) +
+  ggtitle("Distribution of 'overall' scores")
+```
+
+Now let's work out what score you have to get to be special in each characteristic. This can be done mathematically, of course, but let's do it using the simulated data. Here's the distribution for top-10% cut-off points:
+
+```{r echo=TRUE}
+cutoffs <- characteristics %>% 
+            group_by(characteristic) %>% 
+            summarise(top_decile = quantile(score, 0.9))
+```
+
+
+```{r}
+ggplot(cutoffs) +
+  geom_histogram(mapping=aes(x=top_decile)) +
+  ggtitle("Distribution of Special Cutoffs")
+
+```
+
+As you can see, on average, individuals have to have a score greater than `r round(mean(cutoffs$top_decile),2)` to be considered 'special' in that characteristic. Now, let's see how special each individual is -- measured by the number of scores above the special cut-off for that characteristic they achieve.
+
+```{r echo=T}
+special_count <- characteristics %>% 
+                    inner_join(cutoffs) %>% 
+                    mutate(special = score >= top_decile) %>%
+                    group_by(individual) %>%
+                    summarise(n_specials = sum(special)) %>%
+                    arrange(n_specials)
+```
+
+
+```{r}
+ggplot(special_count) +
+  geom_histogram(mapping=aes(x=n_specials)) +
+  ggtitle("Distribution of Special Counts")
+
+
+not_special <- special_count %>% filter(n_specials == 0)
+
+```
+
+Overall, there are `r nrow(not_special)` individuals who are not special in anything.
+
+## A Slightly More Realistic Model
+
+Obviously it is not true that each of these characteristics is unrelated to each other. For instance, someone who is good at breast stroke swimming would also probably be better at rowing than someone who can't swim at all. Let's introduce some interpendence. 
+
+In this model, I introduce four 'meta-characteristics' which could impact all other characteristics. These four meta-characteristics have nothing special about them -- and there could in fact be an arbitrary number of meta-characteristics. But, for the sake of this argument, let's assume there are four meta-characteristics. These meta-characteristics impact every other characteristic, but are indepdent from each other. Let's call them intelligence (I), creativity (C), emotional capability (E), and physical aptitude (P). (Again, these four are just picked out of thin air. What they are doesn't really matter.) Obviously, not every characteristic will depend equally on those four. Some skills -- like chess -- might mostly be based on I, while others -- like sprinting -- might depend mostly on P. Moreover, not all the variation in skills will be due to those four. Each skill might itself have something unique about it -- let's call it U. Let's say each of those factors contributes $x$% to an individual's total skill in each pursuit. Their total score could be given by
+
+$$
+T = x_II+x_CC + x_EE + x_PP + x_uU
+$$
+Necesarily, $x_I+x_C+ x_E+ x_P+ x_u=1$.
+
+Now, let's randomly generate 500 non-meta characteristics, each with their own $x$-values. 
+
+```{r echo=TRUE}
+characteristics_to_generate <- 500
+
+generate_coefficients <- function() {
+  
+  coefs <- numeric(5)
+  
+  # Ensures that the coefficients all add up to 1
+  remaining_pct <- 1
+  for (i in 1:4) {
+    coefs[i] <-runif(1, max=remaining_pct)
+    remaining_pct <-remaining_pct-coefs[i] 
+  }
+  coefs[5] <- remaining_pct
+  
+  match <- as.data.frame(sample(coefs))
+  match$code <- c('I','C','E','P','U')
+  
+  to_return <- match %>% pivot_wider(names_from = code, values_from = "sample(coefs)")
+  
+  return(as.data.frame(to_return))
+  
+}
+
+meta.coefs <- data.frame(characteristic=numeric(),
+                      I=numeric(),
+                      C=numeric(),
+                      E=numeric(),
+                      P=numeric(),
+                      U=numeric())
+
+for (i in 1:characteristics_to_generate) {
+  d <- generate_coefficients()
+  d$characteristic <- i
+  meta.coefs <- meta.coefs %>% bind_rows(d)
+}
+```
+
+Here's what a sample of those non-meta characteristics, together with their randomly-generated coefficients, looks like:
+
+```{r}
+kable(sample_n(meta.coefs, 5))
+```
+
+
+```{r}
+ggplot(meta.coefs %>% pivot_longer(c('I','C','E','P', 'U'), names_to="meta.characteristic", values_to="coefficient")) +
+  geom_histogram(mapping=aes(x=coefficient)) +
+  facet_wrap(~meta.characteristic) +
+  ggtitle("Distribution of meta characteristic coefficients")
+
+```
+
+```{r preview=TRUE}
+ranked_by_intl <- meta.coefs %>%
+                    arrange(I) %>%
+                    mutate(I.rank = rank(desc(I)))
+
+ggplot(ranked_by_intl %>% pivot_longer(c('I','C','E','P', 'U'), names_to="meta.characteristic", values_to="coefficient")) +
+  geom_col(mapping=aes(x=I.rank, fill=meta.characteristic, y=coefficient)) +
+  ggtitle("Distribution of meta characteristic coefficients")
+
+```
+
+
+Now we have to generate the meta-characteristic scores for each individual. Once again, these will normally distributed.
+
+```{r echo=TRUE}
+meta.indiv <- data.frame(individual=1:n_individuals,
+                      I=rnorm(n_individuals),
+                      C=rnorm(n_individuals),
+                      E=rnorm(n_individuals),
+                      P=rnorm(n_individuals))
+```
+
+Here's what a sample of these randomly-generated scores looks like:
+
+```{r}
+kable(sample_n(meta.indiv, 5))
+```
+
+This is what the distribution of meta scores looks like over the whole population:
+
+```{r}
+ggplot(meta.indiv %>% pivot_longer(c('I','C','E','P'), names_to="meta.characteristic", values_to="score")) +
+  geom_histogram(mapping=aes(x=score)) +
+  facet_wrap(~meta.characteristic) +
+  ggtitle("Distribution of meta characteristic scores")
+```
+
+Now we have to combine these two to create the characteristic scores for each individual in the normal (non-meta) characteristics. Further, we have to generate the unqiue terms for each individual/characteristic pair representing the individual's score in that particular characteristic which is indepedent of the meta-characteristics. 
+
+```{r echo=TRUE}
+
+nonmeta.indiv <- expand.grid(individual = 1:n_individuals, 
+                             characteristic = 1:characteristics_to_generate)
+nonmeta.indiv$U <- rnorm(n_individuals*characteristics_to_generate)
+
+nonmeta.indiv <- nonmeta.indiv %>% 
+  inner_join(meta.indiv) %>%
+  inner_join(meta.coefs, 
+             by=c("characteristic"), 
+             suffix=c(".indiv", ".coef")) %>%
+  mutate(score = (I.indiv * I.coef) + (C.indiv * C.coef) +
+           (E.indiv * E.coef) + (P.indiv * P.coef)  + 
+           (U.indiv * U.coef))
+```
+
+Here's what a sample of these individual/characteristic pairs looks like:
+
+```{r}
+kable(sample_n(round(nonmeta.indiv,2), 5))
+```
+
+Here are the distributions of those scores for 5 randomly chosen characteristics, together with their score formulae.
+
+```{r}
+random_characteristics <- sample(1:characteristics_to_generate, 5)
+
+for (c in random_characteristics) {
+  
+  coefs <- round(meta.coefs %>% filter(characteristic==c),2)
+  
+  print(ggplot(nonmeta.indiv %>% filter(characteristic == c)) +
+    geom_histogram(mapping = aes(score)) +
+    labs(
+      title = paste0("Score distribution for ", c),
+      subtitle = paste("Score = ", coefs[,'I'], "I + ", coefs[,'C'], "C + ", coefs[,'E'], "E + ", coefs[,'P'], "P + ",coefs[,'U'], "U")
+    ))
+}
+```
+
+
+Now, let's once again compute a "overall" score for each individual. Naturally, these have a much wider range than did overall scores in the previous, more naive model. This is because much of the variance in overall score is driven by only 4 variables. With only 4 variables, there are likely to be many more people who cannot make up their diffencies with strong performances elsewhere.
+
+```{r echo=T}
+by_individual2 <- nonmeta.indiv %>% group_by(individual) %>% summarise(overall = mean(score))
+```
+
+```{r}
+
+ggplot(by_individual2) +
+  geom_histogram(mapping=aes(x=overall)) +
+  ggtitle("Distribution of 'overall' scores")
+
+
+```
+
+Now let's work out what score you have to get to be special in each characteristic. Naturally, because of the broader dispersion of outcomes shown above, the score to become special is lower in a world where skills are inter-related. 
+
+```{r echo=TRUE}
+cutoffs2 <- nonmeta.indiv %>% 
+            group_by(characteristic) %>% 
+            summarise(top_decile = quantile(score, 0.9))
+```
+
+```{r}
+ggplot(cutoffs2) +
+  geom_histogram(mapping=aes(x=top_decile)) +
+  ggtitle("Distribution of Special Cutoffs")
+
+```
+
+Then let's apply those requirements to all of the individual scores in each characteristic. Once again, because of the dispersion in outcomes, we see a very different graph.
+
+```{r echo=T}
+special_count2 <- nonmeta.indiv %>% 
+                    inner_join(cutoffs2) %>% 
+                    mutate(special = score >= top_decile) %>%
+                    group_by(individual) %>%
+                    summarise(n_specials = sum(special)) %>%
+                    arrange(n_specials)
+```
+
+```{r}
+ggplot(special_count2) +
+  geom_histogram(mapping=aes(x=n_specials)) +
+  ggtitle("Distribution of Special Counts")
+
+
+not_special2 <- special_count2 %>% filter(n_specials == 0)
+
+```
+
+In this new model, `r nrow(not_special2)` individuals are not special in anything.
+
+## Conclusions
+On slightly more realistic assumptions, therefore, it looks like not everyone is guaranteed to be special. However, the different results we recieved from each model are important in themselves. When more of one's variance is due to a few factors, that increases the likelihood that people will not be able to compensate for weakness in one area with strength in another. That has interesting implications for how we think about, for instance, the disappearance of manual labour work. As jobs become increasing knowledge-focused, our performance coalesces more and more around one factor -- intelligence. That increases the likelihood that some people will fall behind, even if, in previous times, their physical strength or other characteristics could have compensated. We should be careful to consider this when designing social policy.
+
+
+
