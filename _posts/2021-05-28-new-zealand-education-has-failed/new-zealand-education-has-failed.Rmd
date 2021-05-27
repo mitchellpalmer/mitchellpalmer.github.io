@@ -1,0 +1,48 @@
+---
+title: "New Zealand Education Has Failed"
+description: |
+  A proposal for radical reform of the New Zealand education system. 
+author:
+  - name: Mitchell Palmer
+    url: https://mitchellpalmer.nz
+date: 09-02-2018
+categories:
+  - Education
+  - New Zealand
+  - Politics
+preview: exam.jpg
+output:
+  distill::distill_article:
+    self_contained: false
+---
+In 2018, while I was still a student at Auckland Grammar, I wrote a short article proposing a radical shakeup of the New Zealand education system, based around the principle of parental choice. This article was posted as a [guest post](https://www.kiwiblog.co.nz/2018/09/guest_post_nz_education_has_failed.html) on Kiwiblog, which is run by the prominent centre-right pollster David Farrar and is the most-read blog in New Zealand. The post is reproduced below.
+
+***
+
+New Zealand’s education system is fundamentally broken. We are failing our kids, especially those from the poorest families.  Whle our NCEA pass rates increase year-on-year, every year, our international performance has worsened. The Tertiary Education Commission found 40% of students who passed Year 12 failed international reading tests. No English-speaking country has a system which underserves poor children worse than ours. And as our system becomes more unequal, the Australian, Canadian, British, and American systems improve. As we head into a modern economy where manual labour is less and less a marketable skill, we need better education, not worse.
+
+One of our greatest Prime Ministers, Peter Fraser said all New Zealanders “whatever their ability, rich or poor, whether they live in town or country” have a birthright to “a free education of the kind for which they are best fitted and to the fullest extent of their powers.” Most New Zealanders would agree with that. Unfortunately, we have failed to achieve it.
+
+The problem lies particularly in the lottery of birth which determines where a child can go to school. In American politics it is a common plattitude that “a child’s future should not be determined by his zip [post] code”. In New Zealand, it is rather the size of the child’s parents’ paycheque which determines that future.
+
+Wealthy parents can afford to move into any school zone in the country, to access the best public schools, or to send their children to private schools. For instance, the average premium charged for a property in the zones of Auckland Grammar School and Epsom Girls’ Grammar School is in excess of \$500,000. Fees at Kings’ College are around \$25,000 per student, per year. This is clearly out of reach of the average New Zealand family – whose average household income just breached $100,000 last year – let alone the poorest, who probably would benefit most from the upward mobility advantages of high-quality schooling.
+
+The variety of choice avaliable to wealthy parents means there is significant compeitition for their education dollars. Schools compete with each other to outperform academically, culturally, and in sports. For instance, Auckland Grammar knows it must maintain high standards, otherwise many of its current and future students will jump ship to Westlake Boys’, Macleans, Auckland International College or King’s, in search of a quality academic education.
+
+By contrast, look at the choices avaliable to middle- and working- class New Zealand families. Locked out of the best public schools by exclusionary zoning policies – which reach around the country; for instance, both Hamilton and Christchurch Boys’ High Schools have tight zoning requirements – and out of the private schools by the high costs, they must accept whatever their local school gives them. As much as local schools may profess to be interested in the futures of their students, they have no significant incentive to actually do so, because they have a captive audience. Instead their incentive is to meet Ministry-set targets, which they do by inflating NCEA grades and channeling their students through vocational courses, locking them out of many career paths.
+
+This dichotomy suggests the solution to many of our woes: Give all parents – no matter their household incomes – the choice of where to send their children to school to introduce real competition.
+
+We should begin by dezoning every public school and allowing them to choose their own enrollment scheme. We should also link the private school subsidy to parental income and increase it significantly, allowing children across the entire income spectrum to access that part of the system.
+
+Next, we must allow more flexibility for public schools to structure themselves: Underperforming schools should be able to be purchased by high performers who can’t fulfill demand. New Zealand has already seen this flexible model in action. In the early 20th century, Auckland Grammar, already overcapacity, set up schools around Auckland following its system and sharing its traditions and, for a period, Board of Governors. These schools – places like Mount Albert Grammar, Takapuna Grammar, and Epsom Girls’ Grammar – are some of Auckland’s premier schools even today.
+
+We should also end the government subsidy of NCEA. NCEA is a system which, with its unlimited flexibility, allows schools in low-competition areas to take soft options and lock their students out of opportunity. If it is to continue, it should be on an equal playing field with credible alternatives, like the internationally-renowned Cambridge and IB systems.
+
+And lastly – and possibly most controversially – we should end the teachers’ unions’ monopoly on teaching. We should allow public schools to negotiate pay and conditions with teachers on an individual basis, rather than setting payrates nationally by negotiation between the Ministry of Education and the NZPPTA and NZEI (the unions). Schools are far more aware of their specific needs and situation than Ministry bureaucrats attempting to create a one-size-fits-all contracts. Such flexiblity would allow schools to attract top talent and pay their best teachers more, without having to take them out of the classroom and into management.
+
+Michael Gove called it the “soft bigotry of low expectations”; I call it paternalism: New Zealand has systematically removed the power of less-well-off parents over their children’s educations and given it to Wellington. What have we got for it? Record truancy rates and a generation of children who have no opportunity to move up in society. That certainly doesn’t sound like the egalitarian paradise New Zealand aims to be.
+
+We need to change it.
+
+
