@@ -1,5 +1,28 @@
 [
   {
+    "path": "posts/2021-05-28-submission-to-transport-committee-on-congestion-charging/",
+    "title": "Why Auckland Should Introduce Congestion Pricing",
+    "description": "My submission to Parliament's inquiry on the introduction of congestion pricing to Auckland. I argue strongly in favour of introducing such a system.",
+    "author": [
+      {
+        "name": "Mitchell Palmer",
+        "url": "https://mitchellpalmer.nz"
+      }
+    ],
+    "date": "2021-05-02",
+    "categories": [
+      "New Zealand",
+      "Singapore",
+      "Economics",
+      "Politics",
+      "Submissions"
+    ],
+    "contents": "\nThe New Zealand Parliament’s Transport and Infrastructure Committee recently requested submissions on proposals to introduce congestion pricing to New Zealand’s largest city and my previous home city, Auckland. Given my current residence in Singapore, which was one of the first cities in the world to adopt a system of congestion pricing, I felt I was ideally placed to submit to the inquiry. I concluded that:\n\nThe Committee, if it takes its responsibility to provide quality infrastructure to New Zealanders seriously, should recommend the immediate implementation of congestion charging in Auckland.\n\nI applauded the proposal on three grounds:\nCongestion charging is a fairer way of funding infrastructure development than alternatives;\nCongestion charging provides crucial signals for infrastructure investment, from both the public and private sectors; and,\nCongestion charging is a crucial component of a sensible market-based approach to land use allocation.\nFurther, I rebutted the oft-repeated objection that congestion charging would be ineffective or unfair given the current state of Auckland’s public transport system.\nMy submission can be found here in PDF form.\n\n\n\n",
+    "preview": "posts/2021-05-28-submission-to-transport-committee-on-congestion-charging/images/ERP_in_Singapore.jpg",
+    "last_modified": "2021-05-28T03:57:52+08:00",
+    "input_file": "submission-to-transport-committee-on-congestion-charging.utf8.md"
+  },
+  {
     "path": "posts/2021-04-27-is-everyone-special/",
     "title": "Is Everyone Special?",
     "description": "Statistically testing a cliche",

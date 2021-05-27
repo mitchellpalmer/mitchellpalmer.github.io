@@ -1,0 +1,33 @@
+---
+title: "Why Auckland Should Introduce Congestion Pricing"
+description: |
+  My submission to Parliament's inquiry on the introduction of congestion pricing to Auckland. I argue strongly in favour of introducing such a system.
+author:
+  - name: Mitchell Palmer
+    url: https://mitchellpalmer.nz
+date: 05-02-2021
+categories:
+  - New Zealand
+  - Singapore
+  - Economics
+  - Politics
+  - Submissions
+preview: images/ERP_in_Singapore.jpg
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+The New Zealand Parliament's Transport and Infrastructure Committee recently requested submissions on proposals to introduce congestion pricing to New Zealand's largest city and my previous home city, Auckland. Given my current residence in Singapore, which was one of the first cities in the world to adopt a system of congestion pricing, I felt I was ideally placed to submit to the inquiry. I concluded that:
+
+> The Committee, if it takes its responsibility to provide quality infrastructure to New Zealanders seriously, should recommend the immediate implementation of congestion charging in Auckland.
+
+I applauded the proposal on three grounds:
+
+1. Congestion charging is a fairer way of funding infrastructure development than alternatives;
+2. Congestion charging provides crucial signals for infrastructure investment, from both the public and private sectors; and,
+3. Congestion charging is a crucial component of a sensible market-based approach to land use allocation.
+
+Further, I rebutted the oft-repeated objection that congestion charging would be ineffective or unfair given the current state of Auckland's public transport system.
+
+[My submission can be found here in PDF form.](PalmerSubmissionCongestionCharging.pdf)
