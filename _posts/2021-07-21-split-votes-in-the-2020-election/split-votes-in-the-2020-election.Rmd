@@ -1,0 +1,319 @@
+---
+title: "Split Votes in the 2020 Election"
+description: |
+  A brief compilation of split vote data from the 2020 election.
+author:
+  - name: Mitchell Palmer
+    url: https://mitchellpalmer.nz
+    affiliation: Yale-NUS College
+categories:
+  - New Zealand
+  - Politics
+  - Elections
+  - Quick Graphs
+date: 07-21-2021
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+
+```{r setup, include=FALSE}
+library(readr)
+library(stringr)
+library(tidyverse)
+library(ggplot2)
+library(kableExtra)
+library(scales)
+library(ggalluvial)
+
+knitr::opts_chunk$set(echo = FALSE)
+
+all_electorates <- data.frame()
+
+unvec_party_shorten <- function(x) {
+  return(switch(x, 
+         "National Party"="National",
+         "Labour Party"="Labour",
+         "ACT New Zealand"="ACT",
+         "New Zealand First Party"="NZ First",
+         "Green Party"="Greens",
+         "Māori Party"="Māori",
+         x))
+}
+
+party_shorten <- Vectorize(unvec_party_shorten)
+
+for (i in 1:72) {
+  raw <- read_csv(paste0("data/data_",i,".csv"))
+  
+  electorate_id <- as.numeric(strsplit(names(raw)[1], " ")[[1]][1])
+  electorate <- str_trim(gsub('[0-9]+', '', names(raw)[1]))
+
+  r <- raw %>% 
+    rename(party_vote_party = 1) %>%
+    pivot_longer(cols=contains("(")|contains("Only")|contains("Informal"), 
+                 values_to = "percent_of_party_votes") %>%
+    mutate(candidate_vote_party = party_shorten(str_extract(string = name,
+                                              pattern = "(?<=\\().*(?=\\))")),
+           party_vote_party = party_shorten(party_vote_party),
+           candidate = gsub("\\([^()]*\\)", "", name),
+           electorate_id = electorate_id,
+           electorate = electorate,
+           votes = round(percent_of_party_votes/100 * `Total Party Votes`),
+           split = ifelse(is.na(candidate_vote_party), 
+                          TRUE, 
+                          (party_vote_party != candidate_vote_party))) %>%
+    select(party_vote_party, candidate_vote_party, votes,
+           candidate, electorate_id, electorate, split) %>%
+    filter(party_vote_party != "Total Party Votes and Percentages")
+
+  all_electorates <- bind_rows(all_electorates, r)
+  
+}
+
+relevant_parties <- c(
+  'ACT', 'Greens', 'Labour', 'National',
+  'NZ First', 'Māori'
+)
+
+colour_match <- c(
+    "ACT"="#FDE401",
+    "National"="#00529F",
+    "NZ First"="#000000",
+    "Labour"="#D82A20",
+    "Greens"="#098137",
+    "Māori"="#770808"
+)
+
+votes_by_split <- all_electorates %>% 
+  group_by(split) %>% 
+  summarise(votes = sum(votes)) 
+
+
+```
+
+*Continuing my series of [election data posts](https://mitchellpalmer.github.io/posts/2020-11-15-nzge-2020-all-the-votes-are-in/) from last year, in this post, I provide some graphs, showing which voters made use of the split vote in MMP last election.*
+
+One of the innovations which MMP introduced to New Zealand was the split vote. Under MMP, every voter gets two votes. His first vote -- which determines (for most purposes) the make-up of Parliament and, therefore, which parties will be included in the next Government -- is the 'party vote'. That vote is cast for a registered political party and its pre-published list of candidates, not any specific individual. His second vote is the candidate/personal/electorate vote and determines which Member of Parliament will represent his region in Parliament. That vote is cast for an individual, but most candidates have a party affiliation which is listed under their name on the ballot paper. If a voter picks a candidate for his candidate vote from a party which is different to the party he voted for in the party vote, he is said to have cast a split vote. If a voter votes for the same party in both votes, he is said to have cast a "two-ticks" vote.
+
+In this post, I investigate the trends in the split vote reports from the 2021 election, as released by the Electoral Commission on their excellent [ElectionResults.govt.nz](https://www.electionresults.govt.nz/electionresults_2020/statistics/split-votes-index.html) website, which contains data for every New Zealand election in the MMP era.
+
+Split votes are not uncommon, but neither are they standard practice. Of the `r comma(sum(votes_by_split$votes))` votes cast in the last election, `r comma((votes_by_split %>% filter(split))$votes)` or `r comma(100*(votes_by_split %>% filter(split))$votes/sum(votes_by_split$votes))`% were split votes. However, the rates of split voting vary signifcantly by the party for which the voter casts his party vote. 
+
+```{r}
+votes_by_party_and_split <- all_electorates %>% 
+  mutate(split = ifelse(split, "Split", "Two-Ticks")) %>%
+  group_by(party_vote_party, split) %>% 
+  summarise(votes = sum(votes)) 
+
+ggplot(votes_by_party_and_split %>% filter(party_vote_party %in% relevant_parties)) + 
+  geom_col(mapping=aes(x=party_vote_party,
+                       y=votes,
+                       fill=split),
+           position = "fill") +
+  scale_y_continuous(labels = scales::percent) +
+  scale_fill_discrete("Candidate Vote") + 
+  theme_minimal() +
+  labs(title="Which party-voters split their vote most often? ", 
+       y="Percentage of Votes", 
+       x="Party Vote Recipient",
+       caption="Mitchell Palmer\nmitchellpalmer.github.io")+
+  coord_flip()
+```
+
+As one might expect, the people who most often split their votes are those who vote for parties which do not actively campaign for the electorate vote in most areas. Interestingly, Labour party-voters split their votes at a much higher rate than National party-voters. Let see where the split-voters from the parties choose to reallocate their votes.
+
+This is the most convenient representation of this data but -- due to formatting contraints -- it includes only the four largest parties.
+
+```{r}
+
+big_four <- c("National", "Labour", "Greens", "ACT")
+
+party_votes <- all_electorates %>% group_by(party_vote_party) %>% summarise(votes = sum(votes)) 
+candidate_votes <- all_electorates %>% group_by(candidate_vote_party) %>% summarise(votes = sum(votes)) 
+
+party_combinations <- all_electorates %>% 
+  group_by(party_vote_party, candidate_vote_party) %>% 
+  summarise(votes = sum(votes)) %>%
+  inner_join(party_votes, by="party_vote_party",
+             suffix=c("",".pv_total")) %>%
+  inner_join(candidate_votes, by="candidate_vote_party",
+             suffix=c("",".cv_total")) %>%  
+  mutate(frac_of_party_votes = votes/votes.pv_total,
+         frac_of_candidate_votes = votes/votes.cv_total,
+         split = (party_vote_party == candidate_vote_party))
+
+
+ggplot(party_combinations %>% filter(party_vote_party %in% big_four, candidate_vote_party %in% big_four),
+       aes(y = votes,
+           axis1 = party_vote_party, 
+           axis2 = candidate_vote_party)) +
+  geom_alluvium(aes(fill = party_vote_party), width = 1/4) +
+  guides(fill = FALSE) +
+  geom_stratum(width = 1/4) +
+  geom_text(stat = "stratum", aes(label = after_stat(stratum))) +
+  scale_x_continuous(breaks=1:2, 
+                     labels = c("Party Vote", "Candidate Vote"),
+                     expand = c(0, 0),
+                     position="top",
+                     ) +
+  scale_y_continuous(NULL, breaks=NULL) +
+  scale_fill_manual(values=colour_match) +
+  theme_minimal() +
+  theme(panel.grid.major = element_blank(),
+        axis.text=element_text(size=10,face="bold", vjust=5)) +
+  labs(title="Voter Flow in 2021 Election in All Constituencies", 
+       subtitle = " ",
+       caption="Mitchell Palmer\nmitchellpalmer.github.io") 
+```
+
+If we restrict ourselves to the Māori constituencies and exclude ACT and National -- neither of which are in the top four party-vote recipients in the Māori constituencies -- and include the Māori Party and NZ First, this is what the voter flow looks like:
+
+```{r}
+maori_four <- c("Labour", "Greens", "Māori", "NZ First")
+maori_constituencies <- c("Tāmaki Makaurau", 
+                          "Te Tai Tokerau", 
+                          "Te Tai Tonga", 
+                          "Waiariki",
+                          "Te Tai Hauāuru",
+                          "Ikaroa-Rāwhiti",
+                          "Hauraki-Waikato")
+
+
+party_combinations_maori <- all_electorates %>% 
+  filter(electorate %in% maori_constituencies,
+         party_vote_party %in% maori_four,
+         candidate_vote_party %in% maori_four) %>%
+  group_by(party_vote_party, candidate_vote_party) %>% 
+  summarise(votes = sum(votes))
+
+ggplot(party_combinations_maori,
+       aes(y = votes,
+           axis1 = party_vote_party, 
+           axis2 = candidate_vote_party)) +
+  geom_alluvium(aes(fill = party_vote_party), width = 1/4) +
+  guides(fill = FALSE) +
+  geom_stratum(width = 1/4) +
+  geom_text(stat = "stratum", aes(label = after_stat(stratum))) +
+  scale_x_continuous(breaks=1:2, 
+                     labels = c("Party Vote", "Candidate Vote"),
+                     expand = c(0, 0),
+                     position="top",
+                     ) +
+  scale_y_continuous(NULL, breaks=NULL) +
+  scale_fill_manual(values=colour_match) +
+  theme_minimal() +
+  theme(panel.grid.major = element_blank(),
+        axis.text=element_text(size=10,face="bold", vjust=5)) +
+  labs(title="Voter Flow in 2021 Election in Māori Constituencies", 
+       subtitle = " ",
+       caption="Mitchell Palmer\nmitchellpalmer.github.io") 
+```
+
+These next graphs display a slightly broader group of parties, but do so at the cost of easy comprehensibility. To read the below graph, look first as the x-axis which tells you who the voter party-voted for, then look at the y-axis which is who they candidate-voted for. The numbers in white represent the % of the total party votes of the party on the x-axis which the party on the y-axis took as candidate votes. For instance, the 65% in the (ACT, National) box shows that 65% of ACT party-voters cast their electorate votes for National. The ACT column sums to roughly 95%, meaning that roughly 95% of ACT party-voters cast candidate votes for one of the six parties which were in either this or the previous Parliament. 
+
+```{r}
+ggplot(party_combinations %>% filter(party_vote_party %in% relevant_parties, candidate_vote_party %in% relevant_parties)) + 
+  geom_raster(mapping=aes(x=party_vote_party,
+                          y=candidate_vote_party,
+                          fill=frac_of_party_votes)) +
+  geom_text(mapping=aes(x=party_vote_party,
+                          y=candidate_vote_party,
+                          label=round(100*frac_of_party_votes)),
+            color="white") +
+  theme_minimal() +
+  labs(title="Who did party-voters candidate vote for?", 
+       y="Candidate Vote Recipient", x="Party Vote Recipient",       
+       caption="Mitchell Palmer\nmitchellpalmer.github.io") + 
+  scale_fill_continuous(labels=scales::percent, name="% of Party-Voters")
+
+```
+
+The below graph shows the opposite -- i.e., the percentage of people who candidate-voted for one party (still on the y-axis) which party-voted for each other party (still on the x-axis). E.g., the 15% in the (ACT, National) box means that 15% of National candidate-voters party-voted for ACT. The National row sums to 97%, meaning that 97% of National candidate-voters cast their party votes for one of the six displayed parties. 
+
+```{r}
+ggplot(party_combinations %>% filter(party_vote_party %in% relevant_parties, candidate_vote_party %in% relevant_parties)) + 
+  geom_raster(mapping=aes(x=party_vote_party,
+                          y=candidate_vote_party,
+                          fill=frac_of_candidate_votes)) +
+  geom_text(mapping=aes(x=party_vote_party,
+                          y=candidate_vote_party,
+                          label=round(100*frac_of_candidate_votes)),
+            color="white") +
+  theme_minimal() +
+  labs(title="Who did candidate-voters party vote for?", 
+       y="Candidate Vote Recipient", 
+       x="Party Vote Recipient",
+       caption="Mitchell Palmer\nmitchellpalmer.github.io") + 
+  scale_fill_gradient(labels=scales::percent, name="% of Candidate-Voters",
+                      low = "#8e2438",
+                      high = "#e59aa8")
+
+
+```
+
+Now, let's see which electorates split their votes most often. In this exercise, I'm including only those who cast party votes in each electorate as the demoninator. Those who cast candidate votes but did not cast party votes might be considered to have split their votes by some definitions, but including them makes the computation more difficult for little reward. 
+
+You can click on each electorate name to see a graph of that electorate's voter flow. The only parties shown in each graph are the parties which recieved more than 1,000 party votes in that electorate. 
+
+```{r}
+
+pv_by_electorate <- all_electorates %>% group_by(electorate) %>% summarise(total_votes = sum(votes)) 
+electorate_split <- all_electorates %>% 
+  group_by(electorate, split) %>% 
+  summarise(votes = sum(votes), electorate_id = max(electorate_id)) %>%
+  inner_join(pv_by_electorate, by="electorate") %>%
+  mutate(frac_of_split_votes = ifelse(split, votes/total_votes, 1-(votes/total_votes)))
+
+
+# Uncomment to regenerate PDFs
+
+# for (i in 1:72) {
+# 
+#   elec <- all_electorates %>% filter(electorate_id==i)
+#   elec_parties <- (elec %>%
+#     group_by(party_vote_party) %>%
+#     summarise(pv=sum(votes)) %>%
+#     filter(pv > 1000))$party_vote_party
+# 
+#   plot <- ggplot(elec %>% filter(party_vote_party %in% elec_parties, candidate_vote_party %in%elec_parties),
+#        aes(y = votes,
+#            axis1 = party_vote_party,
+#            axis2 = candidate_vote_party)) +
+#   geom_alluvium(aes(fill = party_vote_party), width = 1/4) +
+#   guides(fill = FALSE) +
+#   geom_stratum(width = 1/4) +
+#   geom_text(stat = "stratum", aes(label = after_stat(stratum))) +
+#   scale_x_continuous(breaks=1:2,
+#                      labels = c("Party Vote", "Candidate Vote"),
+#                      expand = c(0, 0),
+#                      position="top",
+#                      ) +
+#   scale_y_continuous(NULL, breaks=NULL) +
+#   scale_fill_manual(values=colour_match) +
+#   theme_minimal() +
+#   theme(panel.grid.major = element_blank(),
+#         axis.text=element_text(size=10,face="bold", vjust=5)) +
+#   labs(title=paste0("Voter Flow in 2021 Election in ", elec$electorate[1]),
+#        subtitle = " ",
+#        caption="Mitchell Palmer\nmitchellpalmer.github.io")
+# 
+#   ggsave(paste0("charts/Flow", i ,".pdf"), width = 20, height = 20, units = "cm", device=cairo_pdf)
+#   ggsave(paste0("charts/Flow", i ,".png"), width = 20, height = 20, units = "cm")
+# }
+
+
+electorate_split$flow <- paste0(text_spec('PDF', link = paste0("charts/Flow", electorate_split$electorate_id,".pdf")), " ", text_spec('PNG', link = paste0("charts/Flow", electorate_split$electorate_id,".png")))
+                                         
+knitr::kable((electorate_split %>% 
+               filter(split==TRUE) %>% 
+               mutate(percentage_of_votes_split = round(100*frac_of_split_votes,2)) %>%
+               arrange(-percentage_of_votes_split) %>%
+               select(`Electorate`=electorate, `% of votes split`=percentage_of_votes_split, `Vote Flow Graph`=flow)), escape=F)
+
+```
+
+The constituencies at the top of this list will be unsurprising to those who followed the election. Epsom has long been New Zealand's most prominent example of tactical voting. There, right-wing voters -- including those who otherwise vote National -- choose (and are encouraged by the right-wing parties) to candidate vote for the ACT candidate to maximise the chance of a right-wing government and to ensure that ACT returns to Parliament whether or not it exceeds the 5% threshold. Similarly, the Māori Party made a concerted effort to campaign primarily for the candidate vote in the Māori constituencies, which encouraged otherwise-Labour voters to give them their candidate votes. 
+
+I plan to extend this analysis over time, but please enjoy it for now and let me know if there is anything specific you'd like to see.

@@ -4,15 +4,15 @@
       "path": "about.html",
       "title": "About Me",
       "author": [],
-      "contents": "\nHi. My name is Mitchell Palmer. I am a first year undergraduate at Yale-NUS College, reading for a Bachelor of Arts with Honours. I intend to major in Philosophy, Politics, and Economics, with a minor in Mathematical, Computational, and Statistical Sciences.\nPrior to matriculating at Yale-NUS, I worked for the Parliamentary Service in New Zealand. While there, I worked at the intersection of politics and technology. Now, I work occasionally as a political technology consultant for New Zealand causes and do freelance software development work for organisations, both politcal and not. Here is my CV/resume.\nThis blog contains my various rants, ramblings, and reckons. I am passionate about economics, finance, politics, and technology, so I expect those topics to encompass the vast majority of content here.\nMy hobbies include debating, programming, and rugby refereeing. I am a proficient programmer in Python, R, SQL, JavaScript (and TypeScript), and HTML/CSS, but I have some experience with C++, OCaml, and a variety of other languages. As a debater, I have had a modicum of success, including representing New Zealand while I was at secondary school, winning a variety of novice university titles, and coaching a regional representative team.\nIf you want to find out more about me or contact me, you can follow me on Twitter at @M_W_Palmer, connect with me on LinkedIn, visit my main website, see my Github profile at mitchellpalmer, or email me at mp (at) mitchellpalmer.nz\n\n\n\n",
-      "last_modified": "2020-11-19T19:00:04+08:00"
+      "contents": "\nHi. My name is Mitchell Palmer. I am a first year undergraduate at Yale-NUS College, reading for a Bachelor of Arts with Honours. I intend to major in Economics with a minor in Mathematical, Computational, and Statistical Sciences.\nBefore matriculating at Yale-NUS, I worked for the Parliamentary Service in New Zealand. While there, I worked at the intersection of politics and technology. Now, I work occasionally as a political technology consultant for New Zealand causes and do freelance software development work for organisations, both politcal and not. Here is my CV/resume.\nThis blog contains my various rants, ramblings, and reckons. I am passionate about economics, finance, politics, and technology, so I expect those topics to encompass the vast majority of content here.\nMy hobbies include debating, programming, and rugby refereeing. I am a proficient programmer in Python, R, SQL, JavaScript (and TypeScript), and HTML/CSS, but I have some experience with C++, OCaml, and a variety of other languages. As a debater, I have had a modicum of success, including representing New Zealand while I was at secondary school, winning a variety of novice university titles, and coaching a regional representative team.\nIf you want to find out more about me or contact me, you can follow me on Twitter at @M_W_Palmer, connect with me on LinkedIn, visit my main website, see my Github profile at mitchellpalmer, or email me at mp (at) mitchellpalmer.nz\n\n\n\n",
+      "last_modified": "2021-07-21T21:26:36+08:00"
     },
     {
       "path": "index.html",
       "title": "My Reckons and Reasoning",
       "author": [],
       "contents": "\n\n\n\n",
-      "last_modified": "2021-06-29T19:50:25+08:00"
+      "last_modified": "2021-07-21T21:26:37+08:00"
     }
   ],
   "collections": ["posts/posts.json"]
