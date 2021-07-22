@@ -95,9 +95,11 @@ votes_by_split <- all_electorates %>%
 
 *Continuing my series of [election data posts](https://mitchellpalmer.github.io/posts/2020-11-15-nzge-2020-all-the-votes-are-in/) from last year, in this post, I provide some graphs, showing which voters made use of the split vote in MMP last election.*
 
+**Correction:** *In the initial verison of this post, the text and titles of graphs referenced the (non-existent) 2021 general election, rather than the 2020 election, as intended. This was helpfully pointed out by Maksym Polyakov on [Twitter](https://twitter.com/MaksymPolyakov). My thanks to him. It has now been corrected.* 
+
 One of the innovations which MMP introduced to New Zealand was the split vote. Under MMP, every voter gets two votes. His first vote -- which determines (for most purposes) the make-up of Parliament and, therefore, which parties will be included in the next Government -- is the 'party vote'. That vote is cast for a registered political party and its pre-published list of candidates, not any specific individual. His second vote is the candidate/personal/electorate vote and determines which Member of Parliament will represent his region in Parliament. That vote is cast for an individual, but most candidates have a party affiliation which is listed under their name on the ballot paper. If a voter picks a candidate for his candidate vote from a party which is different to the party he voted for in the party vote, he is said to have cast a split vote. If a voter votes for the same party in both votes, he is said to have cast a "two-ticks" vote.
 
-In this post, I investigate the trends in the split vote reports from the 2021 election, as released by the Electoral Commission on their excellent [ElectionResults.govt.nz](https://www.electionresults.govt.nz/electionresults_2020/statistics/split-votes-index.html) website, which contains data for every New Zealand election in the MMP era.
+In this post, I investigate the trends in the split vote reports from the 2020 election, as released by the Electoral Commission on their excellent [ElectionResults.govt.nz](https://www.electionresults.govt.nz/electionresults_2020/statistics/split-votes-index.html) website, which contains data for every New Zealand election in the MMP era.
 
 Split votes are not uncommon, but neither are they standard practice. Of the `r comma(sum(votes_by_split$votes))` votes cast in the last election, `r comma((votes_by_split %>% filter(split))$votes)` or `r comma(100*(votes_by_split %>% filter(split))$votes/sum(votes_by_split$votes))`% were split votes. However, the rates of split voting vary signifcantly by the party for which the voter casts his party vote. 
 
@@ -163,7 +165,7 @@ ggplot(party_combinations %>% filter(party_vote_party %in% big_four, candidate_v
   theme_minimal() +
   theme(panel.grid.major = element_blank(),
         axis.text=element_text(size=10,face="bold", vjust=5)) +
-  labs(title="Voter Flow in 2021 Election in All Constituencies", 
+  labs(title="Voter Flow in 2020 Election in All Constituencies", 
        subtitle = " ",
        caption="Mitchell Palmer\nmitchellpalmer.github.io") 
 ```
@@ -206,7 +208,7 @@ ggplot(party_combinations_maori,
   theme_minimal() +
   theme(panel.grid.major = element_blank(),
         axis.text=element_text(size=10,face="bold", vjust=5)) +
-  labs(title="Voter Flow in 2021 Election in Māori Constituencies", 
+  labs(title="Voter Flow in 2020 Election in Māori Constituencies", 
        subtitle = " ",
        caption="Mitchell Palmer\nmitchellpalmer.github.io") 
 ```
@@ -295,7 +297,7 @@ electorate_split <- all_electorates %>%
 #   theme_minimal() +
 #   theme(panel.grid.major = element_blank(),
 #         axis.text=element_text(size=10,face="bold", vjust=5)) +
-#   labs(title=paste0("Voter Flow in 2021 Election in ", elec$electorate[1]),
+#   labs(title=paste0("Voter Flow in 2020 Election in ", elec$electorate[1]),
 #        subtitle = " ",
 #        caption="Mitchell Palmer\nmitchellpalmer.github.io")
 # 
