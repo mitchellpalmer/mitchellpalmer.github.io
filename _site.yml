@@ -14,3 +14,4 @@ navbar:
       href: about.html
   source_url: TRUE
 output: distill::distill_article
+google_analytics: "G-5TXYQMXGDX"
