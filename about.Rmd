@@ -6,7 +6,7 @@ title: "About Me"
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-Hi. My name is [Mitchell Palmer](https://www.mitchellpalmer.nz). I am a first year 
+Hi. My name is [Mitchell Palmer](https://www.mitchellpalmer.nz). I am a second year 
 undergraduate at [Yale-NUS College](http://yale-nus.edu.sg/), reading for a Bachelor of 
 Arts with Honours. I intend to major in Economics with a minor in Mathematical, 
 Computational, and Statistical Sciences.
