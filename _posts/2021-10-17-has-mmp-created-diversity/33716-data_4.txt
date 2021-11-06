@@ -1,0 +1,41 @@
+The data below is in a format known as tab-delimited values. You can open this file with any spreadsheet application and the data will be distributed into the appropriate rows and columns. 		
+
+Years	Female MPs	Male MPs
+1931*	1	79
+1935	0	80
+1938	3	77
+1943	2	78
+1946	2	78
+1949	3	77
+1951	4	76
+1954	4	76
+1957	4	76
+1960	4	76
+1963	5	75
+1966	6	74
+1969	4	80
+1972	4	83
+1975	4	83
+1978	4	88
+1981	8	84
+1984	12	83
+1987	14	83
+1990	16	81
+1993	21	78
+1996	35	85
+1999	37	83
+2002	35	85
+2005	40	81
+2008	41	81
+2011	39	82
+2014	38	83
+2017	46	74
+
+* First female MP elected in a by-election in 1933.
+
+
+Source: NZ Parliamentary debates		
+
+Downloaded from Te Ara | The Encyclopedia of New Zealand
+www.TeAra.govt.nz
+ 
