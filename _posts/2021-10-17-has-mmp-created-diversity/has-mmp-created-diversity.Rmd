@@ -5,7 +5,12 @@ description: |
 author:
   - name: Mitchell Palmer
     url: https://mitchellpalmer.nz
-date: 10-17-2021
+    affiliation: Yale-NUS College
+date: 11-06-2021
+categories:
+  - New Zealand
+  - Politics
+  - Elections
 output:
   distill::distill_article:
     self_contained: false
@@ -15,7 +20,7 @@ Henry Cooke at Stuff recently wrote a [very interesting series of articles on Ne
 
 However, one claim from the [last article](https://www.stuff.co.nz/national/politics/300426130/mmp-at-25-mmp-has-changed-parliament-for-good-but-has-it-stopped-parliament-changing-new-zealand) in the series raised my hackles. Henry says, "MMP has definitely delivered more diversity to Parliament. Women won just 10 per cent of the seats in the last nine elections under FPP. They have won 34 per cent in the first nine MMP elections."  Although not explicitly stated, the clear implication we are meant to draw is that MMP *caused* this increase in diversity and, in particular, the increased representation of women.
 
-That is, on its face, a ludicrous conclusion to draw from that single datapoint. It is almost a textbook case of *post hoc ergo propter hoc*^[Latin for "after that, therefore because of that"]  fallacy. Quite a lot other than the electoral system changed between 2020 (the last election in the sample Henry draws from) and 1969 (the first) -- especially for women. To be fair to Henry, he isn't just focused on gender diversity and he offers some good analysis of why MMP might particularly lead to greater representation for geographically disperse minorities. (Of course, women aren't a minority and they aren't any more geographically disperse than men, but that's a point for another post.) But, I think I am justified in thinking a little more epistemic humility is necessary before leading readers to (if not explicitly stating) such *causal* conclusions from only a single datapoint.
+That is, on its face, a ludicrous conclusion to draw from that single datapoint. It is almost a textbook case of *post hoc ergo propter hoc*^[Latin for "after this, therefore because of this"]  fallacy. Quite a lot other than the electoral system changed between 2020 (the last election in the sample Henry draws from) and 1969 (the first) -- especially for women. To be fair to Henry, he isn't just focused on gender diversity and he offers some good analysis of why MMP might particularly lead to greater representation for geographically disperse minorities. (Of course, women aren't a minority and they aren't any more geographically disperse than men, but that's a point for another post.) But, I think I am justified in thinking a little more epistemic humility is necessary before leading readers to (if not explicitly stating) such *causal* conclusions from only a single datapoint.
 
 I decided to test Henry's conclusion, using some very back-of-the-envelope maths. My approach is simple: To know what the *causal* impact of a particular policy is, you need to know what would happen in the counterfactual world in which the policy was not applied (and everything else stayed the same). You can then calculate the difference between that world and our world and be certain that any difference was *caused* by the policy. Unfortunately, we do not currently have the scientific capability to access such parallel universes. 
 
@@ -27,6 +32,7 @@ As you can see on the graph below, the differences between MMP New Zealand and c
 knitr::opts_chunk$set(echo = FALSE)
 library(tidyverse)
 library(readxl)
+library(lubridate)
 
 # Import NZ data from NZHistory.govt.nz
 nz_house <- read_delim("33716-data_4.txt", 
@@ -122,23 +128,33 @@ ggplot(with_counterfactual) +
         legend.title = element_blank())
 ```
 
-Calculating rolling averages is a complicated business -- for which you can see the source code on Github ()
+Calculating rolling averages is a non-trivial business -- for which you can see the [source code on Github](https://github.com/mitchellpalmer/mitchellpalmer.github.io/blob/master/_posts/2021-10-17-has-mmp-created-diversity/has-mmp-created-diversity.Rmd#L80) -- and I could well have gotten it wrong, so below you can find the legislature-by-legislature data for your viewing pleasure and as a kind of visual sensitivity test.
 
+```{r}
+ggplot(combined, aes(Date, fem_frac, group = house, color=house)) +
+  geom_line() +
+  geom_point(data = combined %>% filter(house == "New Zealand")) +
+  geom_vline(xintercept = ISOdate(1994,6,15), linetype="dashed") +
+  annotate("text", x = ISOdate(1960,1,1), y = 0.5, label = "Pre-MMP") + 
+  annotate("text", x = ISOdate(2010,1,1), y = 0.5, label = "MMP") + 
+  scale_y_continuous(labels = scales::percent, name="Women as % of Legislators") +
+  theme_classic() +
+  labs(title = "Has MMP Increased the Number of Women in Parliament?",
+       caption = "Graph: Mitchell Palmer\nmitchellpalmer.nz") +
+  theme(legend.title = element_blank())
+```
 
-But that is not necessarily the end of the discussion. To put some numbers on this, I ran a regression. If you're deathly allergic to maths, it might be worth skipping this paragraph. I assumed that the percentage of women returned in a particular election was a function of three things: the parliament being elected, the year of the election, and whether the election was conducted under MMP. This should allow us to get a rough estimate of the causal impact of MMP on gender diversity, however, it will break if, for some reason other than MMP, the trends of gender diversity between New Zealand and other Anglophone countries diverged.
+But the graphs are not necessarily the end of the discussion. To put some numbers on this, I ran a regression. If you're deathly allergic to maths, it might be worth skipping these two paragraphs. I assumed that the percentage of women returned in a particular election was a function of three things: the parliament being elected, the year of the election, and whether the election was conducted under MMP. This should allow us to get a rough estimate of the causal impact of MMP on gender diversity, however, it will break if, for some reason other than MMP, the trends of gender diversity between New Zealand and other Anglophone countries diverged.
 
 ```{r}
 data_to_regress <- combined %>%
-  mutate( date = Date,
-          MMP = if_else((date > ISOdate(1995, 12, 31) & (house == "New Zealand")), 1, 0),
+  mutate( year = year(Date),
+          MMP = if_else((year >= 1996 & (house == "New Zealand")), 1, 0),
           house = relevel(as.factor(house), ref = "New Zealand"),
           fem_pc = 100*fem_frac)
 
-ols_model <- lm(fem_pc ~ MMP + date + house, data=data_to_regress)
+ols_model <- lm(fem_pc ~ MMP + year + house, data=data_to_regress)
 summary(ols_model)
-
-
-
 ```
 
 Unlike the visual inspection of the data, this regression suggests that, yes, MMP has increased the gender diversity of New Zealand's Parliament relative to those of our Anglophone friends, once one controls for the effects of time and the fixed characteristics of each house. You can interpret the coefficient on MMP as the estimated causal impact of the introduction of new electoral system, i.e., the introduction of MMP is estimated to have increased the proportion of women in New Zealand's Parliament by `r round(coef(ols_model)['MMP'],2)` percentage points. This estimate is statistically significant to a 95% level, but is likely highly sensitive to the comparison legislatures we use, so it should be interpreted with significant caution.
