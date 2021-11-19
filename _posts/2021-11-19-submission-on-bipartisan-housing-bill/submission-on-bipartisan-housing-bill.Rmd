@@ -1,0 +1,27 @@
+---
+title: "Why New Zealand Must Legalise Density"
+description: |
+  My submission to Parliament's Environment Committee on the urgent bipartisan housing bill which would significantly expand allowable density in New Zealand's cities.
+author:
+  - name: Mitchell Palmer
+    url: https://mitchellpalmer.nz
+    affiliation: Yale-NUS College 
+date: 11-19-2021
+categories:
+  - New Zealand
+  - Economics
+  - Politics
+  - Submissions
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+I submitted to Parliament in support of the [bipartisan housing bill](https://www.rnz.co.nz/news/political/453824/housing-density-to-increase-across-new-zealand-under-rare-bipartisan-solution) proposed by the Government and Oppposition, which would significantly limit councils' ability to restrict density in New Zealand cities. I submitted in favour of this bill and made a series of suggestions to improve it:
+
+- A recommendation that the Bill provide councils with fiscal incentives to encourage construction and fund infrastructure growth.
+- A recommendation that the Bill remove limitations on building which are not explicitly aimed at reducing the external costs of densification.
+- A recommendation that the Bill require councils to consent ‘mixed-use’ developments which retain a broadly-residential character.
+- A recommendation that the Bill create a right for property owners to increase allowable building on their street beyond planned levels through a street-by-street voting process (*street votes*).
+
+You can find the [text of my submission here](PalmerHousingBill.pdf) and the [video of my oral submission here](https://www.facebook.com/environmentSCNZ/videos/416869966595981/?t=3502).
