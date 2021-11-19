@@ -1,7 +1,7 @@
 [
   {
     "path": "posts/2021-11-19-submission-on-bipartisan-housing-bill/",
-    "title": "Why We Must Build More Houses",
+    "title": "Why New Zealand Must Legalise Density",
     "description": "My submission to Parliament's Environment Committee on the urgent bipartisan housing bill which would significantly expand allowable density in New Zealand's cities.",
     "author": [
       {
@@ -10,11 +10,16 @@
       }
     ],
     "date": "2021-11-19",
-    "categories": [],
+    "categories": [
+      "New Zealand",
+      "Economics",
+      "Politics",
+      "Submissions"
+    ],
     "contents": "\nI submitted to Parliament in support of the bipartisan housing bill proposed by the Government and Oppposition, which would significantly limit councils’ ability to restrict density in New Zealand cities. I submitted in favour of this bill and made a series of suggestions to improve it:\nA recommendation that the Bill provide councils with fiscal incentives to encourage construction and fund infrastructure growth.\nA recommendation that the Bill remove limitations on building which are not explicitly aimed at reducing the external costs of densification.\nA recommendation that the Bill require councils to consent ‘mixed-use’ developments which retain a broadly-residential character.\nA recommendation that the Bill create a right for property owners to increase allowable building on their street beyond planned levels through a street-by-street voting process (street votes).\nYou can find the text of my submission here and the video of my oral submission here.\n\n\n\n",
     "preview": {},
-    "last_modified": "2021-11-19T14:30:10+08:00",
-    "input_file": {}
+    "last_modified": "2021-11-19T15:31:21+08:00",
+    "input_file": "submission-on-bipartisan-housing-bill.utf8.md"
   },
   {
     "path": "posts/2021-10-17-has-mmp-created-diversity/",
