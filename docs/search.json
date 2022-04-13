@@ -4,15 +4,15 @@
       "path": "about.html",
       "title": "About Me",
       "author": [],
-      "contents": "\nHi. My name is Mitchell Palmer. I am a second year undergraduate at Yale-NUS College, reading for a Bachelor of Arts with Honours. I intend to major in Economics with a minor in Mathematical, Computational, and Statistical Sciences.\nBefore matriculating at Yale-NUS, I worked for the Parliamentary Service in New Zealand. While there, I worked at the intersection of politics and technology. Now, I work occasionally as a political technology consultant for New Zealand causes and do freelance software development work for organisations, both politcal and not. Here is my CV/resume.\nThis blog contains my various rants, ramblings, and reckons. I am passionate about economics, finance, politics, and technology, so I expect those topics to encompass the vast majority of content here.\nMy hobbies include debating, programming, and rugby refereeing. I am a proficient programmer in Python, R, SQL, JavaScript (and TypeScript), and HTML/CSS, but I have some experience with C++, OCaml, and a variety of other languages. As a debater, I have had a modicum of success, including representing New Zealand while I was at secondary school, winning a variety of novice university titles, and coaching a regional representative team.\nIf you want to find out more about me or contact me, you can follow me on Twitter at @M_W_Palmer, connect with me on LinkedIn, visit my main website, see my Github profile at mitchellpalmer, or email me at mp (at) mitchellpalmer.nz\n\n\n\n",
-      "last_modified": "2021-08-30T22:33:00+08:00"
+      "contents": "\nHi. My name is Mitchell\nPalmer. After studying in Singapore at Yale-NUS College for 18\nmonths, I have returned home to New Zealand for a few months to work as\na a policy analyst at the New Zealand Parliament. After that, I will be\nmatriculating at New College, a constituent college of the University of\nOxford, to read history and economics. Here is my CV/resume.\nThis blog contains my various rants, ramblings, and reckons. I am\npassionate about economics, finance, politics, and technology, so I\nexpect those topics to encompass the vast majority of content here. The\ncontents of this blog are entirely my own opinions and do not\nnecessarily represent the views of either my employer or any of the\nacademic institutions to which I am or have been affiliated.\nMy hobbies include debating, programming, and rugby refereeing. I am\na proficient programmer in Python, R, SQL, JavaScript (and TypeScript),\nand HTML/CSS, but I have some experience with C++, OCaml, and a variety\nof other languages. As a debater, I have had a modicum of success,\nincluding representing New Zealand while I was at secondary school,\nwinning a variety of novice university titles, and coaching a regional\nrepresentative team.\nIf you want to find out more about me or contact me, you can follow\nme on Twitter at @M_W_Palmer, connect with me on\nLinkedIn,\nvisit my main website, see\nmy Github profile at mitchellpalmer, or email me\nat mp (at) mitchellpalmer.nz\n\n\n\n",
+      "last_modified": "2022-04-13T23:49:52+12:00"
     },
     {
       "path": "index.html",
       "title": "My Reckons and Reasoning",
       "author": [],
       "contents": "\n\n\n\n",
-      "last_modified": "2021-11-19T15:26:30+08:00"
+      "last_modified": "2022-04-13T23:45:47+12:00"
     }
   ],
   "collections": ["posts/posts.json"]

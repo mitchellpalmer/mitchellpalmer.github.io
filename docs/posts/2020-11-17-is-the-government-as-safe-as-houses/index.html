@@ -20,26 +20,28 @@
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css" data-origin="pandoc">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -48,39 +50,61 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #545454; font-weight: bold; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #a1024a; } /* BaseN */
+code span.al { color: #ad0000; } /* Alert */
+code span.an { color: #5e5e5e; } /* Annotation */
+code span.at { } /* Attribute */
+code span.bn { color: #ad0000; } /* BaseN */
 code span.bu { } /* BuiltIn */
-code span.cf { color: #007faa; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #008000; } /* Char */
-code span.cn { color: #d91e18; } /* Constant */
-code span.co { color: #545454; } /* Comment */
-code span.cv { color: #545454; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #aa5d00; } /* DataType */
-code span.dv { color: #a1024a; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.cf { color: #007ba5; } /* ControlFlow */
+code span.ch { color: #20794d; } /* Char */
+code span.cn { color: #8f5902; } /* Constant */
+code span.co { color: #5e5e5e; } /* Comment */
+code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+code span.dt { color: #ad0000; } /* DataType */
+code span.dv { color: #ad0000; } /* DecVal */
+code span.er { color: #ad0000; } /* Error */
 code span.ex { } /* Extension */
-code span.fl { color: #a1024a; } /* Float */
-code span.fu { color: #4254a7; } /* Function */
+code span.fl { color: #ad0000; } /* Float */
+code span.fu { color: #4758ab; } /* Function */
 code span.im { } /* Import */
-code span.in { color: #545454; font-weight: bold; } /* Information */
-code span.kw { color: #007faa; font-weight: bold; } /* Keyword */
-code span.op { color: #696969; } /* Operator */
-code span.ot { color: #007faa; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #008000; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #008000; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #008000; } /* VerbatimString */
-code span.wa { color: #545454; font-weight: bold; font-style: italic; } /* Warning */
+code span.in { color: #5e5e5e; } /* Information */
+code span.kw { color: #007ba5; } /* Keyword */
+code span.op { color: #5e5e5e; } /* Operator */
+code span.ot { color: #007ba5; } /* Other */
+code span.pp { color: #ad0000; } /* Preprocessor */
+code span.sc { color: #5e5e5e; } /* SpecialChar */
+code span.ss { color: #20794d; } /* SpecialString */
+code span.st { color: #20794d; } /* String */
+code span.va { color: #111111; } /* Variable */
+code span.vs { color: #20794d; } /* VerbatimString */
+code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+</style>
+
+<style>
+  div.csl-bib-body { }
+  div.csl-entry {
+    clear: both;
+    }
+  .hanging div.csl-entry {
+    margin-left:2em;
+    text-indent:-2em;
+  }
+  div.csl-left-margin {
+    min-width:2em;
+    float:left;
+  }
+  div.csl-right-inline {
+    margin-left:2em;
+    padding-left:1em;
+  }
+  div.csl-indent {
+    margin-left: 2em;
+  }
 </style>
 
   <!--radix_placeholder_meta_tags-->
@@ -109,7 +133,6 @@ code span.wa { color: #545454; font-weight: bold; font-style: italic; } /* Warni
 
 <!--/radix_placeholder_meta_tags-->
   
-  <meta name="citation_reference" content="citation_title=&lt;span class=&quot;nocase&quot;&gt;UK house prices and three decades of decline in the risk‑free real interest rate&lt;/span&gt;;citation_publication_date=2019;citation_publisher=Bank of England;citation_number=837;citation_author=David Miles;citation_author=Victoria Monro"/>
   <!--radix_placeholder_rmarkdown_metadata-->
 
 <script type="text/json" id="radix-rmarkdown-metadata">
@@ -133,6 +156,7 @@ code span.wa { color: #545454; font-weight: bold; font-style: italic; } /* Warni
     var header = $('header').get(0);
     var headerHeight = header.offsetHeight;
     var headroom = new Headroom(header, {
+      tolerance: 5,
       onPin : function() {
         if (window.headroom_prevent_pin) {
           window.headroom_prevent_pin = false;
@@ -455,8 +479,15 @@ d-title {
   top: 0;
 }
 
+/* adjust viewport for navbar height */
+/* helps vertically center bootstrap (non-distill) content */
+.min-vh-100 {
+  min-height: calc(100vh - 100px) !important;
+}
+
 </style>
 
+<script src="../../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <link href="../../site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet"/>
 <link href="../../site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet"/>
 <script src="../../site_libs/headroom-0.9.4/headroom.min.js"></script>
@@ -480,22 +511,19 @@ function offsetURL(url) {
   return offset ? offset + '/' + url : url;
 }
 
-function createIndex() {
-  var options = {
-    keys: [
-      "title",
-      "categories",
-      "description",
-      "contents"
-    ]
-  };
-  return new window.Fuse([],options);
-}
-
 function createFuseIndex() {
 
   // create fuse index
-  var options = { keys: ["title", "description", "contents"] };
+  var options = {
+    keys: [
+      { name: 'title', weight: 20 },
+      { name: 'categories', weight: 15 },
+      { name: 'description', weight: 10 },
+      { name: 'contents', weight: 5 },
+    ],
+    ignoreLocation: true,
+    threshold: 0
+  };
   var fuse = new window.Fuse([], options);
 
   // fetch the main search.json
@@ -563,29 +591,25 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             shouldSort: true,
             minMatchCharLength: 2,
             limit: 10,
-            keys: [
-              { name: 'title', weight: 20 },
-              { name: 'categories', weight: 15 },
-              { name: 'description', weight: 10 },
-              { name: 'contents', weight: 5 },
-            ],
           };
           var results = fuse.search(query, searchOptions);
           callback(results
             .map(function(result) { return result.item; })
-            .filter(function(item) { return !!item.description; })
           );
         },
         templates: {
           suggestion: function(suggestion) {
+            var img = suggestion.preview && Object.keys(suggestion.preview).length > 0
+              ? `<img src="${offsetURL(suggestion.preview)}"</img>`
+              : '';
             var html = `
               <div class="search-item">
                 <h3>${suggestion.title}</h3>
                 <div class="search-item-description">
-                  ${suggestion.description}
+                  ${suggestion.description || ''}
                 </div>
                 <div class="search-item-preview">
-                  <img src="${suggestion.preview ? offsetURL(suggestion.preview) : ''}"</img>
+                  ${img}
                 </div>
               </div>
             `;
@@ -608,6 +632,10 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 
 <style type="text/css">
+
+.nav-search {
+  font-size: x-small;
+}
 
 /* Algolioa Autocomplete */
 
@@ -683,6 +711,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 }
 
 .algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item h3 {
+  font-size: 1rem;
   margin-block-start: 0;
   margin-block-end: 5px;
 }
@@ -866,7 +895,7 @@ d-article pre code {
 d-article pre,
 d-article div.sourceCode,
 d-article div.sourceCode pre {
-  overflow: hidden;
+  overflow: auto;
 }
 
 d-article div.sourceCode {
@@ -908,6 +937,11 @@ d-article pre a {
 d-article pre a:hover {
   border-bottom: none;
   text-decoration: underline;
+}
+
+d-article details {
+  grid-column: text;
+  margin-bottom: 0.8em;
 }
 
 @media(min-width: 768px) {
@@ -1064,6 +1098,17 @@ d-article .citation {
 
 div.hanging-indent{
   margin-left: 1em; text-indent: -1em;
+}
+
+/* Citation hover box */
+
+.tippy-box[data-theme~=light-border] {
+  background-color: rgba(250, 250, 250, 0.95);
+}
+
+.tippy-content > p {
+  margin-bottom: 0;
+  padding: 2px;
 }
 
 
@@ -1731,7 +1776,7 @@ function init_distill() {
     var layout = $(this).attr('data-layout');
 
     // apply layout to markdown level block elements
-    var elements = $(this).children().not('div.sourceCode, pre, script');
+    var elements = $(this).children().not('details, div.sourceCode, pre, script');
     elements.each(function(i, el) {
       var layout_div = $('<div class="' + layout + '"></div>');
       if (layout_div.hasClass('shaded')) {
@@ -1846,6 +1891,23 @@ function init_distill() {
     // move appendix-bottom entries to the bottom
     $('.appendix-bottom').appendTo('d-appendix').children().unwrap();
     $('.appendix-bottom').remove();
+
+    // hoverable references
+    $('span.citation[data-cites]').each(function() {
+      var refs = $(this).attr('data-cites').split(" ");
+      var refHtml = refs.map(function(ref) {
+        return "<p>" + $('#ref-' + ref).html() + "</p>";
+      }).join("\n");
+      window.tippy(this, {
+        allowHTML: true,
+        content: refHtml,
+        maxWidth: 500,
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'light-border',
+        placement: 'bottom-start'
+      });
+    });
 
     // clear polling timer
     clearInterval(tid);
@@ -2006,14 +2068,19 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 <!--/radix_placeholder_distill-->
-  <script src="../../site_libs/jquery-1.11.3/jquery.min.js"></script>
+  <script src="../../site_libs/header-attrs-2.13/header-attrs.js"></script>
+  <script src="../../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+  <script src="../../site_libs/popper-2.6.0/popper.min.js"></script>
+  <link href="../../site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
+  <link href="../../site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
+  <script src="../../site_libs/tippy-6.2.7/tippy.umd.min.js"></script>
   <script src="../../site_libs/anchor-4.2.2/anchor.min.js"></script>
   <script src="../../site_libs/bowser-1.9.3/bowser.min.js"></script>
   <script src="../../site_libs/webcomponents-2.0.0/webcomponents.js"></script>
   <script src="../../site_libs/distill-2.2.21/template.v2.js"></script>
   <!--radix_placeholder_site_in_header-->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-5TXYQMXGDX"></script>
-<script>
+<script type="text/javascript" cookie-consent="tracking" async src="https://www.googletagmanager.com/gtag/js?id=G-5TXYQMXGDX"></script>
+<script type="text/javascript" cookie-consent="tracking">
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
@@ -2029,7 +2096,7 @@ gtag('config', 'G-5TXYQMXGDX');
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Is the Government as Safe as Houses?","description":"Alternatively: Why are rental yields so low? I investigate rental yields in New Zealand and why they appear to be lower/not much higher than the risk-free rate which you can earn by lending to the Government.","authors":[{"author":"Mitchell Palmer","authorURL":"https://mitchellpalmer.nz","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2020-11-17T00:00:00.000+08:00","citationText":"Palmer, 2020"}
+{"title":"Is the Government as Safe as Houses?","description":"Alternatively: Why are rental yields so low? I investigate rental yields in New Zealand and why they appear to be lower/not much higher than the risk-free rate which you can earn by lending to the Government.","authors":[{"author":"Mitchell Palmer","authorURL":"https://mitchellpalmer.nz","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2020-11-17T00:00:00.000+13:00","citationText":"Palmer, 2020"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2061,84 +2128,336 @@ gtag('config', 'G-5TXYQMXGDX');
 <h1>Is the Government as Safe as Houses?</h1>
 <!--radix_placeholder_categories-->
 <!--/radix_placeholder_categories-->
-<p>Alternatively: Why are rental yields so low? I investigate rental yields in New Zealand and why they appear to be lower/not much higher than the risk-free rate which you can earn by lending to the Government.</p>
+<p><p>Alternatively: Why are rental yields so low? I investigate rental
+yields in New Zealand and why they appear to be lower/not much higher
+than the risk-free rate which you can earn by lending to the
+Government.</p></p>
 </div>
 
 <div class="d-byline">
-  Mitchell Palmer <a href="https://mitchellpalmer.nz" class="uri">https://mitchellpalmer.nz</a> 
+  Mitchell Palmer <a href="https://mitchellpalmer.nz"
+class="uri">https://mitchellpalmer.nz</a> 
   
 <br/>11-17-2020
 </div>
 
 <div class="d-article">
-<p>I am currently working on reimplementing, with New Zealand data, David Miles and Victoria Monro’s interesting working paper <span class="citation" data-cites="miles_monro">(Miles and Monro <a href="#ref-miles_monro">2019</a>)</span> in which they deconstruct the drivers of UK house prices to understand what effect lower interest rates are having on housing costs. (The Bank of England blog has a <a href="https://bankunderground.co.uk/2020/01/13/whats-been-driving-long-run-house-price-growth-in-the-uk/">great non-technical explanation of Miles and Munro’s work</a>.) As part of that work, I have to find estimates for rental yields in New Zealand over time and compare them to the prevailing risk-free interest rate. That has yielded some counter-intuitive results.</p>
-<p>Rental yields are the gross (annual) rent payments received from a property as a proportion of its market value. Put mathematically: <span class="math inline">\(Yield = \frac{Rent \times 52}{Market Price}\)</span>. Thus, if prices increase while rents are held constant (or increase more slowly), the yield will fall. Similarly, if rents increase while house prices stay the same, the yield will increase. On a national basis, they can be estimated by dividing the average rent by the average house price. This number is particularly important in our current conversation about the role of the Reserve Bank in driving house price inflation. RBNZ targets the Consumer Price Index, which includes rents, but does not include house prices. Thus, if house prices are increasing rapidly but rents aren’t rising quite so quickly, RBNZ won’t care so much<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>. We can see if house prices and rents are becoming decoupled by looking at rental yields.</p>
-<p>Rental yields are simply an interest rate. Just as the interest rate on a term deposit represents the (gross) cash return from holding money in a certain type of investment, so too does a rental yield. As an interest rate, rental yields should increase in tandem with the risk of the investment. This is for the simple reason that, as a saver, if you were offered two investment opportunities with the same return but different risk profiles, you would choose the less risky option. As such, in order for the investment market to clear, riskier assets must offer sufficiently higher returns. For that same reason, interest rates should not fall below the ‘risk-free rate’, which can be earnt by lending to the Government.</p>
-<p>New Zealand Government debt is assumed to be essentially riskless. This is, firstly, because, if it is issued in the NZ Dollar (which most NZ Government debt is), the Government can simply inflate the currency to pay off the debts if it is in danger of default, and, secondly, because the Government has a <a href="https://debtmanagement.treasury.govt.nz/investor-resources/credit-ratings">triple- or double-A credit rating</a> even for its foreign currency debt, meaning it is very unlikely to default in any case.</p>
-<p>The result of that is that the interest rate of any given asset can be understood as a function of two numbers: One, the risk-free rate offered by Government debt, and two, the riskiness of the asset. That is, <span class="math inline">\(r = R_f + RP\)</span> – the interest rate for any asset is equal to the risk-free rate plus a premium paid as compensation for accepting a riskier asset (the <em>risk premium</em>).</p>
-<p>Despite the hackneyed saying referenced in the title<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>, residential property is not risk-free. Rents could, for instance, fall precipitously if a glut of supply entered the market or if demand growth slowed significantly (cf. post-earthquake Christchurch, where both happened) or, perhaps, if the Government were to make a drastic regulatory change (like <a href="https://eresources.nlb.gov.sg/history/events/1f669eff-bc82-49d1-a27c-2624e4cab8c6">Singapore’s did in 1967 when it engaged in large-scale land nationalisation</a>) or if the world economy/bank funding crashes into a brick wall (remember 2008).</p>
-<p>In addition, holding rental property is significantly more expensive than holding government debt. Remember that the yield in question here is the <strong>gross</strong> yield, before taxes or any other expenses. Maintenance must be done, rates must be paid, and a property manager must be employed (or his labour must be done by the landlord herself). In order to incur those costs, one would expect investors to demand either more cashflow or a lower purchase price for the asset (both of which would increase the <strong>gross</strong> yield). By contrast, when one holds government debt (I presume – I have never actually bought any directly), the coupon payments are deposited in your bank account more or less automatically. In a tax sense, they are essentially equivalent except for the loss ring-fencing exemption which existed for property investors until recently. (This will be discussed later.)</p>
-<p>Both of these factors lead me to expect that, when I plotted rental yields on a time-series graph, they would be significantly higher than the Government bond rate. After all, if investors could get a higher yield out of lending to the Crown, why would you take the extra risk and cost of investing in property?</p>
+<p>I am currently working on reimplementing, with New Zealand data,
+David Miles and Victoria Monro’s interesting working paper <span
+class="citation" data-cites="miles_monro">(<a href="#ref-miles_monro"
+role="doc-biblioref">Miles and Monro 2019</a>)</span> in which they
+deconstruct the drivers of UK house prices to understand what effect
+lower interest rates are having on housing costs. (The Bank of England
+blog has a <a
+href="https://bankunderground.co.uk/2020/01/13/whats-been-driving-long-run-house-price-growth-in-the-uk/">great
+non-technical explanation of Miles and Munro’s work</a>.) As part of
+that work, I have to find estimates for rental yields in New Zealand
+over time and compare them to the prevailing risk-free interest rate.
+That has yielded some counter-intuitive results.</p>
+<p>Rental yields are the gross (annual) rent payments received from a
+property as a proportion of its market value. Put mathematically: <span
+class="math inline">\(Yield = \frac{Rent \times 52}{Market
+Price}\)</span>. Thus, if prices increase while rents are held constant
+(or increase more slowly), the yield will fall. Similarly, if rents
+increase while house prices stay the same, the yield will increase. On a
+national basis, they can be estimated by dividing the average rent by
+the average house price. This number is particularly important in our
+current conversation about the role of the Reserve Bank in driving house
+price inflation. RBNZ targets the Consumer Price Index, which includes
+rents, but does not include house prices. Thus, if house prices are
+increasing rapidly but rents aren’t rising quite so quickly, RBNZ won’t
+care so much<a href="#fn1" class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a>. We can see if house prices and
+rents are becoming decoupled by looking at rental yields.</p>
+<p>Rental yields are simply an interest rate. Just as the interest rate
+on a term deposit represents the (gross) cash return from holding money
+in a certain type of investment, so too does a rental yield. As an
+interest rate, rental yields should increase in tandem with the risk of
+the investment. This is for the simple reason that, as a saver, if you
+were offered two investment opportunities with the same return but
+different risk profiles, you would choose the less risky option. As
+such, in order for the investment market to clear, riskier assets must
+offer sufficiently higher returns. For that same reason, interest rates
+should not fall below the ‘risk-free rate’, which can be earnt by
+lending to the Government.</p>
+<p>New Zealand Government debt is assumed to be essentially riskless.
+This is, firstly, because, if it is issued in the NZ Dollar (which most
+NZ Government debt is), the Government can simply inflate the currency
+to pay off the debts if it is in danger of default, and, secondly,
+because the Government has a <a
+href="https://debtmanagement.treasury.govt.nz/investor-resources/credit-ratings">triple-
+or double-A credit rating</a> even for its foreign currency debt,
+meaning it is very unlikely to default in any case.</p>
+<p>The result of that is that the interest rate of any given asset can
+be understood as a function of two numbers: One, the risk-free rate
+offered by Government debt, and two, the riskiness of the asset. That
+is, <span class="math inline">\(r = R_f + RP\)</span> – the interest
+rate for any asset is equal to the risk-free rate plus a premium paid as
+compensation for accepting a riskier asset (the <em>risk
+premium</em>).</p>
+<p>Despite the hackneyed saying referenced in the title<a href="#fn2"
+class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>,
+residential property is not risk-free. Rents could, for instance, fall
+precipitously if a glut of supply entered the market or if demand growth
+slowed significantly (cf. post-earthquake Christchurch, where both
+happened) or, perhaps, if the Government were to make a drastic
+regulatory change (like <a
+href="https://eresources.nlb.gov.sg/history/events/1f669eff-bc82-49d1-a27c-2624e4cab8c6">Singapore’s
+did in 1967 when it engaged in large-scale land nationalisation</a>) or
+if the world economy/bank funding crashes into a brick wall (remember
+2008).</p>
+<p>In addition, holding rental property is significantly more expensive
+than holding government debt. Remember that the yield in question here
+is the <strong>gross</strong> yield, before taxes or any other expenses.
+Maintenance must be done, rates must be paid, and a property manager
+must be employed (or his labour must be done by the landlord herself).
+In order to incur those costs, one would expect investors to demand
+either more cashflow or a lower purchase price for the asset (both of
+which would increase the <strong>gross</strong> yield). By contrast,
+when one holds government debt (I presume – I have never actually bought
+any directly), the coupon payments are deposited in your bank account
+more or less automatically. In a tax sense, they are essentially
+equivalent except for the loss ring-fencing exemption which existed for
+property investors until recently. (This will be discussed later.)</p>
+<p>Both of these factors lead me to expect that, when I plotted rental
+yields on a time-series graph, they would be significantly higher than
+the Government bond rate. After all, if investors could get a higher
+yield out of lending to the Crown, why would you take the extra risk and
+cost of investing in property?</p>
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="is-the-government-as-safe-as-houses_files/figure-html5/unnamed-chunk-1-1.png" width="624" /></p>
 </div>
-<p>As the above graph shows, however, that is far from always true. Indeed, over the period from 1993 to 2015 (when the RBNZ data I am relying on stops), only 14.4% of the time did rental yields exceed the risk-free rate as we would expect. Perhaps, however, it is due to the risk-free rate I have chosen: Maybe a 2- or 5-year time horizon is more appropriate<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>. However, as the graphs below show, that’s not true.</p>
+<p>As the above graph shows, however, that is far from always true.
+Indeed, over the period from 1993 to 2015 (when the RBNZ data I am
+relying on stops), only 13.9% of the time did rental yields exceed the
+risk-free rate as we would expect. Perhaps, however, it is due to the
+risk-free rate I have chosen: Maybe a 2- or 5-year time horizon is more
+appropriate<a href="#fn3" class="footnote-ref" id="fnref3"
+role="doc-noteref"><sup>3</sup></a>. However, as the graphs below show,
+that’s not true.</p>
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="is-the-government-as-safe-as-houses_files/figure-html5/unnamed-chunk-2-1.png" width="624" /><img src="is-the-government-as-safe-as-houses_files/figure-html5/unnamed-chunk-2-2.png" width="624" /></p>
 </div>
-<p>The above three graphs were based on rental yield estimates from the Reserve Bank’s May 2015 Financial Stability Report. They do not appear to have released similar data since then. I am not sure how these estimates were arrived at. Perhaps different estimates would behave more predictably.</p>
-<p>That question did occur to me, so I rolled my own estimate of the prevailing rental yield, based on MBIE tenancy bond data and the house price index published by the Reserve Bank (which is converted to an indicative house price). As you can see below, it tracks quite closely to the RBNZ estimate but is uniformly a few basis points higher – given I don’t know how the RBNZ estimates were calculated, I cannot tell you why that is, but my guess would be that my indicative house price is a shade lower than theirs.</p>
+<p>The above three graphs were based on rental yield estimates from the
+Reserve Bank’s May 2015 Financial Stability Report. They do not appear
+to have released similar data since then. I am not sure how these
+estimates were arrived at. Perhaps different estimates would behave more
+predictably.</p>
+<p>That question did occur to me, so I rolled my own estimate of the
+prevailing rental yield, based on MBIE tenancy bond data and the house
+price index published by the Reserve Bank (which is converted to an
+indicative house price). As you can see below, it tracks quite closely
+to the RBNZ estimate but is uniformly a few basis points higher – given
+I don’t know how the RBNZ estimates were calculated, I cannot tell you
+why that is, but my guess would be that my indicative house price is a
+shade lower than theirs.</p>
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="is-the-government-as-safe-as-houses_files/figure-html5/unnamed-chunk-3-1.png" width="624" /></p>
 </div>
-<p>Given that my estimate for average rental yield is a shade higher than RBNZ’s (0.43 pp on average), it should be unsurprising that it conforms to the condition <span class="math inline">\(y_{Rental} &gt; R_{f}\)</span> more often – in this case, 52.3% of the time, the rental yield exceeds the 10-year bond yield in my estimate, vs. 19.3% in the RBNZ estimate of rental yields.</p>
+<p>Given that my estimate for average rental yield is a shade higher
+than RBNZ’s (0.43 pp on average), it should be unsurprising that it
+conforms to the condition <span class="math inline">\(y_{Rental} &gt;
+R_{f}\)</span> more often – in this case, 53.2% of the time, the rental
+yield exceeds the 10-year bond yield in my estimate, vs. 18.9% in the
+RBNZ estimate of rental yields.</p>
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="is-the-government-as-safe-as-houses_files/figure-html5/unnamed-chunk-4-1.png" width="624" /><img src="is-the-government-as-safe-as-houses_files/figure-html5/unnamed-chunk-4-2.png" width="624" /></p>
 </div>
-<p>Thus, even once one changes (upwards) the estimate of rental yields, the weird fact still exists: Rental yields have, for long periods over the past 27 years, been substantially lower than the risk-free rate which could be earnt by lending to the Government. Miles and Munro’s paper includes a figure which shows rental yields substantially above the risk-free rate in the United Kingdom, so this isn’t a universal phenomenon:</p>
+<p>Thus, even once one changes (upwards) the estimate of rental yields,
+the weird fact still exists: Rental yields have, for long periods over
+the past 27 years, been substantially lower than the risk-free rate
+which could be earnt by lending to the Government. Miles and Munro’s
+paper includes a figure which shows rental yields substantially above
+the risk-free rate in the United Kingdom, so this isn’t a universal
+phenomenon:</p>
 <figure>
-<img src="MilesMunroGiltRentYields.png" alt="Figure from Miles and Munro (2019)" class="external" /><figcaption>Figure from Miles and Munro (2019)</figcaption>
+<img src="MilesMunroGiltRentYields.png" class="external"
+alt="Figure from Miles and Munro (2019)" />
+<figcaption aria-hidden="true">Figure from Miles and Munro
+(2019)</figcaption>
 </figure>
-<p>Unlike Miles and Munro above, I have so far compared rental yields to a nominal measure of the risk-free rate. Perhaps that is incorrect because the capital gains embedded in housing act as an inflation hedge, meaning the correct comparable security would be inflation-protected Government securities. Unfortunately, I can’t find much long-term data on the yields of inflation-protected NZ Government bonds. I would also suggest that perhaps this is not an entirely apt comparison: Housing is at best a risky inflation hedge – it might tend to increase at least as fast as CPI generally, but it is not guaranteed to do so, unlike a directly indexed security.</p>
-<p>However, even taking the relevant inflation rate off the risk-free rate to produce an estimate of the inflation-protected rate, there are still periods (although they are much less frequent – and tend to be in the middle of property crashes) when the estimated rental yield is lower than the risk-free yield. More importantly, the average gap is far lower than the 6-percentage-point gap that Miles and Munro find in the UK (you can see the average as the blue dotted line on the spread graph – it’s just over 2%):</p>
+<p>Unlike Miles and Munro above, I have so far compared rental yields to
+a nominal measure of the risk-free rate. Perhaps that is incorrect
+because the capital gains embedded in housing act as an inflation hedge,
+meaning the correct comparable security would be inflation-protected
+Government securities. Unfortunately, I can’t find much long-term data
+on the yields of inflation-protected NZ Government bonds. I would also
+suggest that perhaps this is not an entirely apt comparison: Housing is
+at best a risky inflation hedge – it might tend to increase at least as
+fast as CPI generally, but it is not guaranteed to do so, unlike a
+directly indexed security.</p>
+<p>However, even taking the relevant inflation rate off the risk-free
+rate to produce an estimate of the inflation-protected rate, there are
+still periods (although they are much less frequent – and tend to be in
+the middle of property crashes) when the estimated rental yield is lower
+than the risk-free yield. More importantly, the average gap is far lower
+than the 6-percentage-point gap that Miles and Munro find in the UK (you
+can see the average as the blue dotted line on the spread graph – it’s
+just over 2%):</p>
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="is-the-government-as-safe-as-houses_files/figure-html5/unnamed-chunk-5-1.png" width="624" /><img src="is-the-government-as-safe-as-houses_files/figure-html5/unnamed-chunk-5-2.png" width="624" /></p>
 </div>
-<p>Finally, if we use the RBNZ estimates of rental yields and compare them to the risk-free rate, we find more instances of the rental yields being below the risk-free rate and a generally lower spread – because, as mentioned above, the RBNZ yield tended to be slightly lower than mine. (N.b., RBNZ’s estimates of the rental yield run out in 2015 – values beyond that date are generated by taking my estimate and subtracting an adjustment for the average amount that the RBNZ estimate was below mine. Values so generated are indicated by dotted lines)</p>
+<p>Finally, if we use the RBNZ estimates of rental yields and compare
+them to the risk-free rate, we find more instances of the rental yields
+being below the risk-free rate and a generally lower spread – because,
+as mentioned above, the RBNZ yield tended to be slightly lower than
+mine. (N.b., RBNZ’s estimates of the rental yield run out in 2015 –
+values beyond that date are generated by taking my estimate and
+subtracting an adjustment for the average amount that the RBNZ estimate
+was below mine. Values so generated are indicated by dotted lines)</p>
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="is-the-government-as-safe-as-houses_files/figure-html5/unnamed-chunk-6-1.png" width="624" /><img src="is-the-government-as-safe-as-houses_files/figure-html5/unnamed-chunk-6-2.png" width="624" /></p>
 </div>
-<p>Recently, this odd situation appears to have rectified itself, for now: Rental yields are a much more explainable 500 or so basis points above the real risk-free rate. The question is: Why did it persist for so long? And why in New Zealand but not in the United Kingdom (which has also had a very buoyant property market in recent times)?</p>
-<p>But just before someone yells at me about it all being a <em>supply</em> issue: You’re preaching to the converted. I have written policy documents calling the inability to free up housing supply the largest government failure this century. Housing supply affects house prices through the channel of rents – as more housing becomes available rents (and imputed rents) fall, which drives down house prices. That will have an indeterminate effect on <em>rental yields</em> (depending on whether rents fall instantly or are simply expected to fall over time), but in rough terms, supply failures increase both the denominator (house prices) and the numerator (rents) of the rental yield equation, so don’t really change it. Low rental yields are an interesting artefact of their own, though – because they affect people’s ability to access <em>property ownership</em>, as opposed to <em>housing</em>. Low yields are actually quite good news for renters, but they’re dreadful news for first home-buyer because they mean you have to collect a big deposit in order to buy a house, the purchase of which won’t reduce your rental bill by much, because as a percentage of house prices it was low.</p>
-<p>Perhaps investors expected capital gains. The mere expectation that prices will rise in the future will increase prices today, without any change in the current income-earning potential of the asset (i.e., the rental revenue), as investors attempt to capture those capital gains for themselves. This drives up prices without driving up rents too (because it is about future expectations, not the present situation), lowering the yield substantially.</p>
-<p>Where do those expectations of capital gains come from though? The canonical model of asset prices says that the price of any cash-returning asset will be equal to the sum of its future cashflows, discounted to the present by an appropriate rate. This discounting occurs because <a href="https://en.wikipedia.org/wiki/Time_value_of_money">money tomorrow is worth less than money today</a> – asset prices thus increase as the expected value of future cashflows increases and decrease as prevailing interest rates increase. The relationship between interest rates and asset prices can also be understood more parochially in terms of lower interest rates increasing borrowing ability and thus demand for investment products.</p>
-<p>Let’s deal with interest rates first: If investors expect interest rates to fall over time, that would lead them to discount future earnings less (because the opportunity cost of waiting for the cash falls, as the interest which could be earnt falls), increasing their valuation of the asset. The figures below show the actual (5-year risk-free) interest rate and investors’ expectations of the (5-year risk-free) interest rate 5 years hence<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a>.</p>
+<p>Recently, this odd situation appears to have rectified itself, for
+now: Rental yields are a much more explainable 500 or so basis points
+above the real risk-free rate. The question is: Why did it persist for
+so long? And why in New Zealand but not in the United Kingdom (which has
+also had a very buoyant property market in recent times)?</p>
+<p>But just before someone yells at me about it all being a
+<em>supply</em> issue: You’re preaching to the converted. I have written
+policy documents calling the inability to free up housing supply the
+largest government failure this century. Housing supply affects house
+prices through the channel of rents – as more housing becomes available
+rents (and imputed rents) fall, which drives down house prices. That
+will have an indeterminate effect on <em>rental yields</em> (depending
+on whether rents fall instantly or are simply expected to fall over
+time), but in rough terms, supply failures increase both the denominator
+(house prices) and the numerator (rents) of the rental yield equation,
+so don’t really change it. Low rental yields are an interesting artefact
+of their own, though – because they affect people’s ability to access
+<em>property ownership</em>, as opposed to <em>housing</em>. Low yields
+are actually quite good news for renters, but they’re dreadful news for
+first home-buyer because they mean you have to collect a big deposit in
+order to buy a house, the purchase of which won’t reduce your rental
+bill by much, because as a percentage of house prices it was low.</p>
+<p>Perhaps investors expected capital gains. The mere expectation that
+prices will rise in the future will increase prices today, without any
+change in the current income-earning potential of the asset (i.e., the
+rental revenue), as investors attempt to capture those capital gains for
+themselves. This drives up prices without driving up rents too (because
+it is about future expectations, not the present situation), lowering
+the yield substantially.</p>
+<p>Where do those expectations of capital gains come from though? The
+canonical model of asset prices says that the price of any
+cash-returning asset will be equal to the sum of its future cashflows,
+discounted to the present by an appropriate rate. This discounting
+occurs because <a
+href="https://en.wikipedia.org/wiki/Time_value_of_money">money tomorrow
+is worth less than money today</a> – asset prices thus increase as the
+expected value of future cashflows increases and decrease as prevailing
+interest rates increase. The relationship between interest rates and
+asset prices can also be understood more parochially in terms of lower
+interest rates increasing borrowing ability and thus demand for
+investment products.</p>
+<p>Let’s deal with interest rates first: If investors expect interest
+rates to fall over time, that would lead them to discount future
+earnings less (because the opportunity cost of waiting for the cash
+falls, as the interest which could be earnt falls), increasing their
+valuation of the asset. The figures below show the actual (5-year
+risk-free) interest rate and investors’ expectations of the (5-year
+risk-free) interest rate 5 years hence<a href="#fn4"
+class="footnote-ref" id="fnref4"
+role="doc-noteref"><sup>4</sup></a>.</p>
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="is-the-government-as-safe-as-houses_files/figure-html5/unnamed-chunk-7-1.png" width="624" /><img src="is-the-government-as-safe-as-houses_files/figure-html5/unnamed-chunk-7-2.png" width="624" /><img src="is-the-government-as-safe-as-houses_files/figure-html5/unnamed-chunk-7-3.png" width="624" /></p>
 </div>
-<p>No clear pattern is discernable, except that investors tend to expect rates to increase when they’re high and decrease when they’re low. I don’t think this data is sufficient to conclude that it is expectations about interest rates driving these low yields, but just to check, I have plotted the expected change in interest rates against rental yields and, just as expected, there is no obvious relationship:</p>
+<p>No clear pattern is discernable, except that investors tend to expect
+rates to increase when they’re high and decrease when they’re low. I
+don’t think this data is sufficient to conclude that it is expectations
+about interest rates driving these low yields, but just to check, I have
+plotted the expected change in interest rates against rental yields and,
+just as expected, there is no obvious relationship:</p>
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="is-the-government-as-safe-as-houses_files/figure-html5/unnamed-chunk-8-1.png" width="624" /></p>
 </div>
-<p>In terms of expected future cashflow: Perhaps there is an expectation on the part of investors that rents will increase substantially in future as a result of supply limitations and demand growth and perhaps this expectation has remained for the past 30 years. This would drive them to purchase property and drive up prices. One would expect, however, such expectations to eventually come true – and yields to increase once these increases have been fully priced in and these rents start being earnt. That does not appear to have happened yet: Rents have certainly increased, but prices have increased even further.</p>
-<p>Perhaps the fact that prices are outstripping rents (and interest rates) suggests it isn’t (or, perhaps, wasn’t) fundamentals driving the housing market, but a <a href="https://en.wikipedia.org/wiki/Greater_fool_theory">greater fool</a> theory of pricing. Investors assume that these assets will be worth more in the future, not because of higher cashflows or lower interest rates (both of which are eminently sensible reasons for prices to increase) but simply because of a mania for housing assets. That suggests the existence of a housing bubble. (This isn’t investment advice, just a possible interpretation of the data.) <strong>However</strong>, given rental yields have adopted a more normal posture recently, I would suggest this bubble may have slowed down if it did exist in the first place.</p>
-<p>Perhaps, also the previous unusual tax treatment of residential property has artificially held down yields. The non-ring-fencing of property losses, which allowed losses in residential property investment to be claimed against non-property income to reduce taxable income, might have encouraged investors to bid somewhat more than was immediately economic for properties, in the knowledge that these short-term losses would be offset somewhat by reducing their tax bill. Perhaps the tax treatment of <em>owner-occupied</em> housing also plays some part in this. The returns of housing (i.e., imputed rents) aren’t taxed (when the house is owned by the occupier), whereas the returns of alternative forms of investment (e.g., KiwiSaver) are. This doesn’t affect property investors directly, but owner-occupiers also receive a yield-in-kind (in the form of rents they don’t have to pay). If those returns are not taxed, they might be willing to accept a lower <em>gross</em> yield and thus bid higher – this will have a downstream impact on the yields earnt by investors as asset prices increase.</p>
-<p>Perhaps, however, investors have seriously, at times, believed that debt issued by the New Zealand government was a more risky investment than residential property. If they have so believed, I have some bridges to sell them. More likely, those weird anomalies are a result of property transactions having large transaction costs and rents being somewhat sticky.</p>
-<p>The New Zealand rental yield does appear unusually stable. Compare the fluctuations in the UK rental yield to those in New Zealand – the UK yield appears to have ranged from roughly 13% in the mid-1990s to around 5% just before the GFC, whereas New Zealand’s yield (rather, my estimate thereof) has ranged from a maximum of 7.61% in 1993 to a minimum of 3.92% in 2016. By contrast, both countries’ headline interest rates have varied by large (and broadly similar) amounts. I am not sure why the market is sticky (especially given New Zealand has no obvious regulatory stickiness imposed, e.g., rent controls or strict tenancy protections), but it appears to be.</p>
-<p>I don’t have a favourite theory, but I think this is an interesting datapoint. I would be interested to hear people’s thoughts on it.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
-<div id="refs" class="references">
-<div id="ref-miles_monro">
-<p>Miles, David, and Victoria Monro. 2019. “UK house prices and three decades of decline in the risk‑free real interest rate.” Bank of England working papers 837. Bank of England. <a href="https://www.bankofengland.co.uk/working-paper/2019/uk-house-prices-and-three-decades-of-decline-in-the-risk-free-real-interest-rate">https://www.bankofengland.co.uk/working-paper/2019/uk-house-prices-and-three-decades-of-decline-in-the-risk-free-real-interest-rate</a>.</p>
+<p>In terms of expected future cashflow: Perhaps there is an expectation
+on the part of investors that rents will increase substantially in
+future as a result of supply limitations and demand growth and perhaps
+this expectation has remained for the past 30 years. This would drive
+them to purchase property and drive up prices. One would expect,
+however, such expectations to eventually come true – and yields to
+increase once these increases have been fully priced in and these rents
+start being earnt. That does not appear to have happened yet: Rents have
+certainly increased, but prices have increased even further.</p>
+<p>Perhaps the fact that prices are outstripping rents (and interest
+rates) suggests it isn’t (or, perhaps, wasn’t) fundamentals driving the
+housing market, but a <a
+href="https://en.wikipedia.org/wiki/Greater_fool_theory">greater
+fool</a> theory of pricing. Investors assume that these assets will be
+worth more in the future, not because of higher cashflows or lower
+interest rates (both of which are eminently sensible reasons for prices
+to increase) but simply because of a mania for housing assets. That
+suggests the existence of a housing bubble. (This isn’t investment
+advice, just a possible interpretation of the data.)
+<strong>However</strong>, given rental yields have adopted a more normal
+posture recently, I would suggest this bubble may have slowed down if it
+did exist in the first place.</p>
+<p>Perhaps, also the previous unusual tax treatment of residential
+property has artificially held down yields. The non-ring-fencing of
+property losses, which allowed losses in residential property investment
+to be claimed against non-property income to reduce taxable income,
+might have encouraged investors to bid somewhat more than was
+immediately economic for properties, in the knowledge that these
+short-term losses would be offset somewhat by reducing their tax bill.
+Perhaps the tax treatment of <em>owner-occupied</em> housing also plays
+some part in this. The returns of housing (i.e., imputed rents) aren’t
+taxed (when the house is owned by the occupier), whereas the returns of
+alternative forms of investment (e.g., KiwiSaver) are. This doesn’t
+affect property investors directly, but owner-occupiers also receive a
+yield-in-kind (in the form of rents they don’t have to pay). If those
+returns are not taxed, they might be willing to accept a lower
+<em>gross</em> yield and thus bid higher – this will have a downstream
+impact on the yields earnt by investors as asset prices increase.</p>
+<p>Perhaps, however, investors have seriously, at times, believed that
+debt issued by the New Zealand government was a more risky investment
+than residential property. If they have so believed, I have some bridges
+to sell them. More likely, those weird anomalies are a result of
+property transactions having large transaction costs and rents being
+somewhat sticky.</p>
+<p>The New Zealand rental yield does appear unusually stable. Compare
+the fluctuations in the UK rental yield to those in New Zealand – the UK
+yield appears to have ranged from roughly 13% in the mid-1990s to around
+5% just before the GFC, whereas New Zealand’s yield (rather, my estimate
+thereof) has ranged from a maximum of 7.61% in 1993 to a minimum of
+3.92% in 2016. By contrast, both countries’ headline interest rates have
+varied by large (and broadly similar) amounts. I am not sure why the
+market is sticky (especially given New Zealand has no obvious regulatory
+stickiness imposed, e.g., rent controls or strict tenancy protections),
+but it appears to be.</p>
+<p>I don’t have a favourite theory, but I think this is an interesting
+datapoint. I would be interested to hear people’s thoughts on it.</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div id="refs" class="references csl-bib-body hanging-indent"
+role="doc-bibliography">
+<div id="ref-miles_monro" class="csl-entry" role="doc-biblioentry">
+Miles, David, and Victoria Monro. 2019. <span>“<span class="nocase">UK
+house prices and three decades of decline in the risk‑free real interest
+rate</span>.”</span> Bank of England working papers 837. Bank of
+England. <a
+href="https://www.bankofengland.co.uk/working-paper/2019/uk-house-prices-and-three-decades-of-decline-in-the-risk-free-real-interest-rate">https://www.bankofengland.co.uk/working-paper/2019/uk-house-prices-and-three-decades-of-decline-in-the-risk-free-real-interest-rate</a>.
 </div>
 </div>
-<section class="footnotes">
+<section class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
 <hr />
 <ol>
-<li id="fn1"><p>At least, they won’t target it directly as part of their inflation-targeting mandate. Their financial stability mandate does lead the RBNZ to care about house prices, however, explaining why they have adopted macro-prudential tools like LVR restrictions on mortgage lending in the past.<a href="#fnref1" class="footnote-back">↩</a></p></li>
-<li id="fn2"><p>According to the OED, “as safe as houses” dates back at least to 1850.<a href="#fnref2" class="footnote-back">↩</a></p></li>
-<li id="fn3"><p>Unfortunately, the 1-year wholesale bond data from RBBNZ has many gaps in it.<a href="#fnref3" class="footnote-back">↩</a></p></li>
-<li id="fn4"><p>These expectations are derived using the standard equation for converting spot rates at different durations into forward rates<a href="#fnref4" class="footnote-back">↩</a></p></li>
+<li id="fn1" role="doc-endnote"><p>At least, they won’t target it
+directly as part of their inflation-targeting mandate. Their financial
+stability mandate does lead the RBNZ to care about house prices,
+however, explaining why they have adopted macro-prudential tools like
+LVR restrictions on mortgage lending in the past.<a href="#fnref1"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2" role="doc-endnote"><p>According to the OED, “as safe as
+houses” dates back at least to 1850.<a href="#fnref2"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3" role="doc-endnote"><p>Unfortunately, the 1-year wholesale
+bond data from RBBNZ has many gaps in it.<a href="#fnref3"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4" role="doc-endnote"><p>These expectations are derived using
+the standard equation for converting spot rates at different durations
+into forward rates<a href="#fnref4" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 <!--radix_placeholder_article_footer-->

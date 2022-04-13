@@ -13,8 +13,6 @@ output:
     self_contained: false
 ---
 
-
-
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 
@@ -23,9 +21,9 @@ library(lubridate)
 library(readxl)
 library(plotly)
 
-download.file('https://www.rbnz.govt.nz/-/media/ReserveBank/Files/Publications/Financial%20stability%20reports/fsr-13may15-data.xlsx?revision=7067fcba-4cd2-4c50-b529-3aced0b808e5', destfile = 'data/rbnz_rental_yields.xlsx')
-download.file('https://www.rbnz.govt.nz/-/media/ReserveBank/Files/Statistics/tables/b2/hb2-monthly.xlsx?revision=818f58fc-a7e1-4fd4-aea6-0d696a98d22b', destfile = 'data/rbnz_wholesale_rates.xlsx')
-rbnz_data <- download.file("https://www.rbnz.govt.nz/-/media/ReserveBank/Files/Statistics/Key%20graphs/graphdata.xlsx?la=en&revision=38801386-40a8-4b29-98cd-8b06f985e5de", destfile = 'data/rbnz_key_graphs.xlsx')
+#download.file('https://www.rbnz.govt.nz/-/media/ReserveBank/Files/Publications/Financial%20stability%20reports/fsr-13may15-data.xlsx?revision=7067fcba-4cd2-4c50-b529-3aced0b808e5', destfile = 'data/rbnz_rental_yields.xlsx')
+#download.file('https://www.rbnz.govt.nz/-/media/ReserveBank/Files/Statistics/tables/b2/hb2-monthly.xlsx?revision=818f58fc-a7e1-4fd4-aea6-0d696a98d22b', destfile = 'data/rbnz_wholesale_rates.xlsx')
+#download.file("https://www.rbnz.govt.nz/-/media/ReserveBank/Files/Statistics/Key%20graphs/graphdata.xlsx?la=en&revision=38801386-40a8-4b29-98cd-8b06f985e5de", destfile = 'data/rbnz_key_graphs.xlsx')
 
 interest_rates <- read_excel("data/rbnz_wholesale_rates.xlsx", 
     col_types = c("date", "numeric", "numeric", 
@@ -60,15 +58,19 @@ inflation <- read_excel("data/rbnz_key_graphs.xlsx",
 
 I am currently working on reimplementing, with New Zealand data, David Miles and Victoria Monro's interesting working paper [@miles_monro] in which they deconstruct the drivers of UK house prices to understand what effect lower interest rates are having on housing costs. (The Bank of England blog has a [great non-technical explanation of Miles and Munro's work](https://bankunderground.co.uk/2020/01/13/whats-been-driving-long-run-house-price-growth-in-the-uk/).) As part of that work, I have to find estimates for rental yields in New Zealand over time and compare them to the prevailing risk-free interest rate. That has yielded some counter-intuitive results.
 
-Rental yields are the gross (annual) rent payments received from a property as a proportion of its market value. Put mathematically: $Yield = \frac{Rent \times 52}{Market Price}$. Thus, if prices increase while rents are held constant (or increase more slowly), the yield will fall. Similarly, if rents increase while house prices stay the same, the yield will increase. On a national basis, they can be estimated by dividing the average rent by the average house price. This number is particularly important in our current conversation about the role of the Reserve Bank in driving house price inflation. RBNZ targets the Consumer Price Index, which includes rents, but does not include house prices. Thus, if house prices are increasing rapidly but rents aren't rising quite so quickly, RBNZ won't care so much^[At least, they won't target it directly as part of their inflation-targeting mandate. Their financial stability mandate does lead the RBNZ to care about house prices, however, explaining why they have adopted macro-prudential tools like LVR restrictions on mortgage lending in the past.]. We can see if house prices and rents are becoming decoupled by looking at rental yields. 
+Rental yields are the gross (annual) rent payments received from a property as a proportion of its market value. Put mathematically: $Yield = \frac{Rent \times 52}{Market Price}$. Thus, if prices increase while rents are held constant (or increase more slowly), the yield will fall. Similarly, if rents increase while house prices stay the same, the yield will increase. On a national basis, they can be estimated by dividing the average rent by the average house price. This number is particularly important in our current conversation about the role of the Reserve Bank in driving house price inflation. RBNZ targets the Consumer Price Index, which includes rents, but does not include house prices. Thus, if house prices are increasing rapidly but rents aren't rising quite so quickly, RBNZ won't care so much[^1]. We can see if house prices and rents are becoming decoupled by looking at rental yields.
 
-Rental yields are simply an interest rate. Just as the interest rate on a term deposit represents the (gross) cash return from holding money in a certain type of investment, so too does a rental yield. As an interest rate, rental yields should increase in tandem with the risk of the investment. This is for the simple reason that, as a saver, if you were offered two investment opportunities with the same return but different risk profiles, you would choose the less risky option. As such, in order for the investment market to clear, riskier assets must offer sufficiently higher returns. For that same reason, interest rates should not fall below the 'risk-free rate', which can be earnt by lending to the Government. 
+[^1]: At least, they won't target it directly as part of their inflation-targeting mandate. Their financial stability mandate does lead the RBNZ to care about house prices, however, explaining why they have adopted macro-prudential tools like LVR restrictions on mortgage lending in the past.
 
-New Zealand Government debt is assumed to be essentially riskless. This is, firstly, because, if it is issued in the NZ Dollar (which most NZ Government debt is), the Government can simply inflate the currency to pay off the debts if it is in danger of default, and, secondly, because the Government has a [triple- or double-A credit rating](https://debtmanagement.treasury.govt.nz/investor-resources/credit-ratings) even for its foreign currency debt, meaning it is very unlikely to default in any case. 
+Rental yields are simply an interest rate. Just as the interest rate on a term deposit represents the (gross) cash return from holding money in a certain type of investment, so too does a rental yield. As an interest rate, rental yields should increase in tandem with the risk of the investment. This is for the simple reason that, as a saver, if you were offered two investment opportunities with the same return but different risk profiles, you would choose the less risky option. As such, in order for the investment market to clear, riskier assets must offer sufficiently higher returns. For that same reason, interest rates should not fall below the 'risk-free rate', which can be earnt by lending to the Government.
+
+New Zealand Government debt is assumed to be essentially riskless. This is, firstly, because, if it is issued in the NZ Dollar (which most NZ Government debt is), the Government can simply inflate the currency to pay off the debts if it is in danger of default, and, secondly, because the Government has a [triple- or double-A credit rating](https://debtmanagement.treasury.govt.nz/investor-resources/credit-ratings) even for its foreign currency debt, meaning it is very unlikely to default in any case.
 
 The result of that is that the interest rate of any given asset can be understood as a function of two numbers: One, the risk-free rate offered by Government debt, and two, the riskiness of the asset. That is, $r = R_f + RP$ -- the interest rate for any asset is equal to the risk-free rate plus a premium paid as compensation for accepting a riskier asset (the *risk premium*).
 
-Despite the hackneyed saying referenced in the title^[According to the OED, "as safe as houses" dates back at least to 1850.], residential property is not risk-free. Rents could, for instance, fall precipitously if a glut of supply entered the market or if demand growth slowed significantly  (cf. post-earthquake Christchurch, where both happened) or, perhaps, if the Government were to make a drastic regulatory change (like [Singapore's did in 1967 when it engaged in large-scale land nationalisation](https://eresources.nlb.gov.sg/history/events/1f669eff-bc82-49d1-a27c-2624e4cab8c6)) or if the world economy/bank funding crashes into a brick wall (remember 2008).
+Despite the hackneyed saying referenced in the title[^2], residential property is not risk-free. Rents could, for instance, fall precipitously if a glut of supply entered the market or if demand growth slowed significantly (cf. post-earthquake Christchurch, where both happened) or, perhaps, if the Government were to make a drastic regulatory change (like [Singapore's did in 1967 when it engaged in large-scale land nationalisation](https://eresources.nlb.gov.sg/history/events/1f669eff-bc82-49d1-a27c-2624e4cab8c6)) or if the world economy/bank funding crashes into a brick wall (remember 2008).
+
+[^2]: According to the OED, "as safe as houses" dates back at least to 1850.
 
 In addition, holding rental property is significantly more expensive than holding government debt. Remember that the yield in question here is the **gross** yield, before taxes or any other expenses. Maintenance must be done, rates must be paid, and a property manager must be employed (or his labour must be done by the landlord herself). In order to incur those costs, one would expect investors to demand either more cashflow or a lower purchase price for the asset (both of which would increase the **gross** yield). By contrast, when one holds government debt (I presume -- I have never actually bought any directly), the coupon payments are deposited in your bank account more or less automatically. In a tax sense, they are essentially equivalent except for the loss ring-fencing exemption which existed for property investors until recently. (This will be discussed later.)
 
@@ -133,7 +135,9 @@ above_0 <- nrow(rate_comparison %>% filter(asset == "rental" & spread > 0))/nrow
 
 ```
 
-As the above graph shows, however, that is far from always true. Indeed, over the period from 1993 to 2015 (when the RBNZ data I am relying on stops), only `r round(above_0 * 100,1)`% of the time did rental yields exceed the risk-free rate as we would expect. Perhaps, however, it is due to the risk-free rate I have chosen: Maybe a 2- or 5-year time horizon is more appropriate^[Unfortunately, the 1-year wholesale bond data from RBBNZ has many gaps in it.]. However, as the graphs below show, that's not true.
+As the above graph shows, however, that is far from always true. Indeed, over the period from 1993 to 2015 (when the RBNZ data I am relying on stops), only `r round(above_0 * 100,1)`% of the time did rental yields exceed the risk-free rate as we would expect. Perhaps, however, it is due to the risk-free rate I have chosen: Maybe a 2- or 5-year time horizon is more appropriate[^3]. However, as the graphs below show, that's not true.
+
+[^3]: Unfortunately, the 1-year wholesale bond data from RBBNZ has many gaps in it.
 
 ```{r}
 plot_against_safe("two_year")
@@ -146,7 +150,7 @@ That question did occur to me, so I rolled my own estimate of the prevailing ren
 
 ```{r}
 
-download.file("https://www.rbnz.govt.nz/-/media/ReserveBank/Files/Statistics/Key%20graphs/graphdata.xlsx?la=en&revision=38801386-40a8-4b29-98cd-8b06f985e5de", destfile = 'data/rbnz_key_graphs.xlsx')
+# download.file("https://www.rbnz.govt.nz/-/media/ReserveBank/Files/Statistics/Key%20graphs/graphdata.xlsx?la=en&revision=38801386-40a8-4b29-98cd-8b06f985e5de", destfile = 'data/rbnz_key_graphs.xlsx')
 
 
 house_price_indx <- read_excel("data/rbnz_key_graphs.xlsx", 
@@ -157,7 +161,7 @@ house_price_indx <- read_excel("data/rbnz_key_graphs.xlsx",
          indx=`HPI for houses, index`) %>%
   mutate(indicative_house_price = 211971 * indx/1000) # https://www.interest.co.nz/property/87961/adjusting-inflation-gains-house-prices-past-four-years-are-actually-nothing-special
 
-download.file('https://www.mbie.govt.nz/assets/Data-Files/Building-and-construction/Tenancy-and-housing/Rental-bond-data/Territorial-Authority/ta-geometric-mean.csv', destfile = 'data/mbie_rents_geometric.csv')
+# download.file('https://www.mbie.govt.nz/assets/Data-Files/Building-and-construction/Tenancy-and-housing/Rental-bond-data/Territorial-Authority/ta-geometric-mean.csv', destfile = 'data/mbie_rents_geometric.csv')
 
 rents <- read_csv("data/mbie_rents_geometric.csv",
                   col_types = cols(Month = col_date(format = "%Y-%m-%d"))) %>%
@@ -229,7 +233,7 @@ ggplot(spreads %>% pivot_longer(cols = c("spread_my_estimate", "spread_rbnz_esti
 
 Thus, even once one changes (upwards) the estimate of rental yields, the weird fact still exists: Rental yields have, for long periods over the past 27 years, been substantially lower than the risk-free rate which could be earnt by lending to the Government. Miles and Munro's paper includes a figure which shows rental yields substantially above the risk-free rate in the United Kingdom, so this isn't a universal phenomenon:
 
-![Figure from Miles and Munro (2019)](MilesMunroGiltRentYields.png){.external}    
+![Figure from Miles and Munro (2019)](MilesMunroGiltRentYields.png){.external}
 
 Unlike Miles and Munro above, I have so far compared rental yields to a nominal measure of the risk-free rate. Perhaps that is incorrect because the capital gains embedded in housing act as an inflation hedge, meaning the correct comparable security would be inflation-protected Government securities. Unfortunately, I can't find much long-term data on the yields of inflation-protected NZ Government bonds. I would also suggest that perhaps this is not an entirely apt comparison: Housing is at best a risky inflation hedge -- it might tend to increase at least as fast as CPI generally, but it is not guaranteed to do so, unlike a directly indexed security.
 
@@ -329,16 +333,17 @@ ggplot(rbnz_estimate_real) +
 
 ```
 
-
 Recently, this odd situation appears to have rectified itself, for now: Rental yields are a much more explainable 500 or so basis points above the real risk-free rate. The question is: Why did it persist for so long? And why in New Zealand but not in the United Kingdom (which has also had a very buoyant property market in recent times)?
 
 But just before someone yells at me about it all being a *supply* issue: You're preaching to the converted. I have written policy documents calling the inability to free up housing supply the largest government failure this century. Housing supply affects house prices through the channel of rents -- as more housing becomes available rents (and imputed rents) fall, which drives down house prices. That will have an indeterminate effect on *rental yields* (depending on whether rents fall instantly or are simply expected to fall over time), but in rough terms, supply failures increase both the denominator (house prices) and the numerator (rents) of the rental yield equation, so don't really change it. Low rental yields are an interesting artefact of their own, though -- because they affect people's ability to access *property ownership*, as opposed to *housing*. Low yields are actually quite good news for renters, but they're dreadful news for first home-buyer because they mean you have to collect a big deposit in order to buy a house, the purchase of which won't reduce your rental bill by much, because as a percentage of house prices it was low.
 
 Perhaps investors expected capital gains. The mere expectation that prices will rise in the future will increase prices today, without any change in the current income-earning potential of the asset (i.e., the rental revenue), as investors attempt to capture those capital gains for themselves. This drives up prices without driving up rents too (because it is about future expectations, not the present situation), lowering the yield substantially.
 
-Where do those expectations of capital gains come from though? The canonical model of asset prices says that the price of any cash-returning asset will be equal to the sum of its future cashflows, discounted to the present by an appropriate rate. This discounting occurs because [money tomorrow is worth less than money today](https://en.wikipedia.org/wiki/Time_value_of_money) -- asset prices thus increase as the expected value of future cashflows increases and decrease as prevailing interest rates increase. The relationship between interest rates and asset prices can also be understood more parochially in terms of lower interest rates increasing borrowing ability and thus demand for investment products. 
+Where do those expectations of capital gains come from though? The canonical model of asset prices says that the price of any cash-returning asset will be equal to the sum of its future cashflows, discounted to the present by an appropriate rate. This discounting occurs because [money tomorrow is worth less than money today](https://en.wikipedia.org/wiki/Time_value_of_money) -- asset prices thus increase as the expected value of future cashflows increases and decrease as prevailing interest rates increase. The relationship between interest rates and asset prices can also be understood more parochially in terms of lower interest rates increasing borrowing ability and thus demand for investment products.
 
-Let's deal with interest rates first: If investors expect interest rates to fall over time, that would lead them to discount future earnings less (because the opportunity cost of waiting for the cash falls, as the interest which could be earnt falls), increasing their valuation of the asset. The figures below show the actual (5-year risk-free) interest rate and investors' expectations of the (5-year risk-free) interest rate 5 years hence^[These expectations are derived using the standard equation for converting spot rates at different durations into forward rates].
+Let's deal with interest rates first: If investors expect interest rates to fall over time, that would lead them to discount future earnings less (because the opportunity cost of waiting for the cash falls, as the interest which could be earnt falls), increasing their valuation of the asset. The figures below show the actual (5-year risk-free) interest rate and investors' expectations of the (5-year risk-free) interest rate 5 years hence[^4].
+
+[^4]: These expectations are derived using the standard equation for converting spot rates at different durations into forward rates
 
 ```{r}
 
@@ -413,7 +418,6 @@ ggplot(with_estimate %>%
   theme_classic()
 ```
 
-
 In terms of expected future cashflow: Perhaps there is an expectation on the part of investors that rents will increase substantially in future as a result of supply limitations and demand growth and perhaps this expectation has remained for the past 30 years. This would drive them to purchase property and drive up prices. One would expect, however, such expectations to eventually come true -- and yields to increase once these increases have been fully priced in and these rents start being earnt. That does not appear to have happened yet: Rents have certainly increased, but prices have increased even further.
 
 Perhaps the fact that prices are outstripping rents (and interest rates) suggests it isn't (or, perhaps, wasn't) fundamentals driving the housing market, but a [greater fool](https://en.wikipedia.org/wiki/Greater_fool_theory) theory of pricing. Investors assume that these assets will be worth more in the future, not because of higher cashflows or lower interest rates (both of which are eminently sensible reasons for prices to increase) but simply because of a mania for housing assets. That suggests the existence of a housing bubble. (This isn't investment advice, just a possible interpretation of the data.) **However**, given rental yields have adopted a more normal posture recently, I would suggest this bubble may have slowed down if it did exist in the first place.
@@ -423,6 +427,5 @@ Perhaps, also the previous unusual tax treatment of residential property has art
 Perhaps, however, investors have seriously, at times, believed that debt issued by the New Zealand government was a more risky investment than residential property. If they have so believed, I have some bridges to sell them. More likely, those weird anomalies are a result of property transactions having large transaction costs and rents being somewhat sticky.
 
 The New Zealand rental yield does appear unusually stable. Compare the fluctuations in the UK rental yield to those in New Zealand -- the UK yield appears to have ranged from roughly 13% in the mid-1990s to around 5% just before the GFC, whereas New Zealand's yield (rather, my estimate thereof) has ranged from a maximum of 7.61% in 1993 to a minimum of 3.92% in 2016. By contrast, both countries' headline interest rates have varied by large (and broadly similar) amounts. I am not sure why the market is sticky (especially given New Zealand has no obvious regulatory stickiness imposed, e.g., rent controls or strict tenancy protections), but it appears to be.
-
 
 I don't have a favourite theory, but I think this is an interesting datapoint. I would be interested to hear people's thoughts on it.
