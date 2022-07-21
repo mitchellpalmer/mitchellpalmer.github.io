@@ -1,0 +1,25 @@
+---
+title: "Hayek Essay Contest 2022: Liberalism and International Economic Integration"
+description: |
+  My winning entry in the 2022 Hayek Essay Contest, run by the Mont Pelerin Society.
+  I wrote on alternative modes of international economic integration and their 
+  implications for liberalism.
+author:
+  - name: Mitchell Palmer
+    url: https://mitchellpalmer.nz
+date: 2022-07-21
+categories:
+  - New Zealand
+  - Economics
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+Every few years, the [Mont Pelerin Society](https://www.montpelerin.org) runs an essay competition based on the work of the noted economist and political thinker F. A. Hayek. The essay competition is open to all those under the age of 37.
+
+This year, the contest was on the theme of international institutions and their interaction with liberalism. [The prompt is available here](MPS_2022_Call_for_submissions.pdf).
+
+My entry, which develops an explanation of the trade-offs which face policymakers when integrating two nations' economies and argues that international economic integration should look more like Australia and New Zealand's Closer Economic Relations arrangement and less like the European Union, ended up winning first place. [You can find a copy of the essay, entitled *The Integration Trilemma and Its Implications for International Liberalism*, in PDF here](Palmer_Integration_Trilemma_Implications_International_Liberalism.pdf).
+
+[Prof. Robert MacCulloch at the University of Auckland was also kind enough to feature the essay on his excellent blog Down To Earth Kiwi.](https://www.downtoearth.kiwi/post/nz-should-never-do-an-eu-style-agreement-with-oz-says-palmer)

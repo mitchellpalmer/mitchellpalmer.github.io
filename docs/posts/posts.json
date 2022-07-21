@@ -1,5 +1,25 @@
 [
   {
+    "path": "posts/2022-07-21-hayek-essay-contest-2022-liberalism-and-international-economic-integration/",
+    "title": "Hayek Essay Contest 2022: Liberalism and International Economic Integration",
+    "description": "My winning entry in the 2022 Hayek Essay Contest, run by the Mont Pelerin Society.\nI wrote on alternative modes of international economic integration and their \nimplications for liberalism.",
+    "author": [
+      {
+        "name": "Mitchell Palmer",
+        "url": "https://mitchellpalmer.nz"
+      }
+    ],
+    "date": "2022-07-21",
+    "categories": [
+      "New Zealand",
+      "Economics"
+    ],
+    "contents": "\nEvery few years, the Mont\nPelerin Society runs an essay competition based on the work of the\nnoted economist and political thinker F. A. Hayek. The essay competition\nis open to all those under the age of 37.\nThis year, the contest was on the theme of international institutions\nand their interaction with liberalism. The prompt is available\nhere.\nMy entry, which develops an explanation of the trade-offs which face\npolicymakers when integrating two nations’ economies and argues that\ninternational economic integration should look more like Australia and\nNew Zealand’s Closer Economic Relations arrangement and less like the\nEuropean Union, ended up winning first place. You\ncan find a copy of the essay, entitled The Integration Trilemma and\nIts Implications for International Liberalism, in PDF here.\nProf. Robert\nMacCulloch at the University of Auckland was also kind enough to feature\nthe essay on his excellent blog Down To Earth Kiwi.\n\n\n\n",
+    "preview": {},
+    "last_modified": "2022-07-21T21:20:09+12:00",
+    "input_file": "hayek-essay-contest-2022-liberalism-and-international-economic-integration.knit.md"
+  },
+  {
     "path": "posts/2022-04-13-are-rugby-players-rational-criminals/",
     "title": "Are Rugby Players Rational Criminals?",
     "description": "Gary Becker meets William Webb Ellis as we find out whether teams rationally respond to the incentives created by red and yellow card rules.",
