@@ -1,5 +1,0 @@
----
-title: "My Reckons and Reasoning"
-site: distill::distill_website
-listing: posts
----
