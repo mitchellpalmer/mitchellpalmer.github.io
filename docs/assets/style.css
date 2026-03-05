@@ -24,9 +24,63 @@
     margin-bottom: 0;
 }
 
-.posts-list li:hover, .work-list li:hover {
-    background-color: var(--accent-bg);
+.work-list-key {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 0.75rem;
+    font-size: 0.95em;
 }
+
+.work-key-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+}
+
+.work-key-swatch {
+    width: 0.9rem;
+    height: 0.9rem;
+    border: 1px solid var(--border);
+    border-radius: 0.25rem;
+}
+
+.work-key-swatch.report {
+    background-color: #eef4ff;
+}
+
+.work-key-swatch.popular-article {
+    background-color: #fff3ea;
+}
+
+.work-key-swatch.academic-paper {
+    background-color: #eefaf0;
+}
+
+.work-list li.report {
+    background-color: #eef4ff;
+}
+
+.work-list li.popular-article {
+    background-color: #fff3ea;
+}
+
+.work-list li.academic-paper {
+    background-color: #eefaf0;
+}
+
+.work-list li.report:hover {
+    background-color: #dce9ff;
+}
+
+.work-list li.popular-article:hover {
+    background-color: #ffe0ca;
+}
+
+.work-list li.academic-paper:hover {
+    background-color: #dbf3e2;
+}
+
 .posts-list li a, .work-list li a {
     text-decoration: none;
     color: var(--text);
