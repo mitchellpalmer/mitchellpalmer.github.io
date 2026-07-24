@@ -81,6 +81,31 @@
     background-color: #dbf3e2;
 }
 
+/* Co-authored / edited pieces: diagonal stripes in the same category colour */
+.work-list li.co-authored.report {
+    background: repeating-linear-gradient(45deg, #eef4ff, #eef4ff 12px, #dce9ff 12px, #dce9ff 24px);
+}
+
+.work-list li.co-authored.popular-article {
+    background: repeating-linear-gradient(45deg, #fff3ea, #fff3ea 12px, #ffe0ca 12px, #ffe0ca 24px);
+}
+
+.work-list li.co-authored.academic-paper {
+    background: repeating-linear-gradient(45deg, #eefaf0, #eefaf0 12px, #dbf3e2 12px, #dbf3e2 24px);
+}
+
+.work-list li.co-authored.report:hover {
+    background: repeating-linear-gradient(45deg, #dce9ff, #dce9ff 12px, #c4d9ff 12px, #c4d9ff 24px);
+}
+
+.work-list li.co-authored.popular-article:hover {
+    background: repeating-linear-gradient(45deg, #ffe0ca, #ffe0ca 12px, #ffceac 12px, #ffceac 24px);
+}
+
+.work-list li.co-authored.academic-paper:hover {
+    background: repeating-linear-gradient(45deg, #dbf3e2, #dbf3e2 12px, #c3ecce 12px, #c3ecce 24px);
+}
+
 .posts-list li a, .work-list li a {
     text-decoration: none;
     color: var(--text);
